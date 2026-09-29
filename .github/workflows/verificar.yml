@@ -24,6 +24,7 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: node --test tests/manifesto.test.mjs
+      - run: node --test tests/cerebro.test.mjs
       - run: npm run manifesto && git diff --exit-code manifesto.json
       - run: npm run validar
 
