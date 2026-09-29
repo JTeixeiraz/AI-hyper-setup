@@ -12,6 +12,15 @@ set -euo pipefail
 REPO="${HYPER_REPO:-JTeixeiraz/AI-hyper-setup}"
 BASE="${HYPER_BASE:-$HOME/.ai-hyper-setup}"
 
+# O instalador do rtk poe o binario em ~/.local/bin, que numa shell recem-aberta
+# pode nao estar no PATH. Sem normalizar aqui, a segunda execucao nao encontra o
+# rtk que a primeira instalou e o reinstala — quebrando a idempotencia.
+case ":${PATH}:" in
+  *":$HOME/.local/bin:"*) ;;
+  *) PATH="$HOME/.local/bin:$PATH" ;;
+esac
+export PATH
+
 VERDE=$'\033[38;5;155m'
 CINZA=$'\033[38;5;245m'
 FORTE=$'\033[1m'
@@ -284,6 +293,32 @@ instalar_skill() {
 
 main() {
   msg "${FORTE}AI Hyper Setup${ZERA}"
+
+  SO="$(detectar_so)"
+  ARQ="$(detectar_arq)"
+  msg "${CINZA}sistema: ${SO} ${ARQ}${ZERA}"
+
+  detectar_agentes
+  if ! escolher_agente; then
+    erro "Nenhum agente de IA encontrado."
+    erro "Suportados: claude (Claude Code), codex (OpenAI Codex), agy (Antigravity)."
+    exit 1
+  fi
+  msg "${CINZA}agente: ${AGENTE_ESCOLHIDO}${ZERA}"
+
+  instalar_rtk
+  instalar_obsidian
+  baixar_repo || exit 2
+  instalar_skill
+  gravar_estado "$BASE/estado.json"
+
+  msg ""
+  msg "${VERDE}${FORTE}Terreno preparado.${ZERA}"
+  msg "Agora abra o ${FORTE}${AGENTE_ESCOLHIDO}${ZERA} e rode:"
+  msg ""
+  msg "    ${VERDE}/hyper-setup-initialize${ZERA}"
+  msg ""
+  msg "${CINZA}a IA termina a instalacao e diz o que instalou e o que ja existia${ZERA}"
 }
 
 # Sourceavel para teste: so roda quando executado diretamente.

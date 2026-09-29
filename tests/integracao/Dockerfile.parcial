@@ -1,0 +1,11 @@
+FROM ubuntu:24.04
+RUN apt-get update && apt-get install -y curl ca-certificates git tar \
+    && rm -rf /var/lib/apt/lists/*
+RUN printf '#!/bin/sh\necho "claude 1.0"\n' > /usr/local/bin/claude \
+    && chmod +x /usr/local/bin/claude
+# RTK e Obsidian ja presentes: o instalador deve pular os dois.
+RUN printf '#!/bin/sh\necho "rtk 0.50.0"\n' > /usr/local/bin/rtk \
+    && chmod +x /usr/local/bin/rtk
+RUN mkdir -p /root/.config/obsidian
+WORKDIR /repo
+COPY . .

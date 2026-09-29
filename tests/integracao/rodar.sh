@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# Roda o instalador em conteineres e confere o que ele reporta.
+#
+# Usa HYPER_LOCAL=/repo: o conteiner ja tem o repositorio copiado, e depender
+# do GitHub tornaria o teste refem da rede e da publicacao do repo.
+set -euo pipefail
+
+cd "$(dirname "$0")/../.."
+falhas=0
+
+checar() {
+  local nome="$1" esperado="$2" saida="$3"
+  if printf '%s' "$saida" | grep -q "$esperado"; then
+    printf '  ok    %s\n' "$nome"
+  else
+    printf '  FALHA %s (esperava /%s/)\n' "$nome" "$esperado"
+    falhas=$((falhas + 1))
+  fi
+}
+
+printf 'maquina limpa\n'
+docker build -q -f tests/integracao/Dockerfile.limpo -t hyper-limpo . >/dev/null
+saida="$(docker run --rm hyper-limpo bash -c '
+  HYPER_LOCAL=/repo bash instalar.sh 2>&1
+  echo "---"
+  cat ~/.ai-hyper-setup/estado.json')"
+checar "escolhe o claude"      'agente: claude'                                  "$saida"
+checar "instala o rtk"         '"item": "rtk", "estado": "instalado"'            "$saida"
+checar "instala a skill"       '"item": "skill-hyper-setup", "estado": "instalado"' "$saida"
+checar "manda rodar a skill"   '/hyper-setup-initialize'                         "$saida"
+
+printf 'maquina parcial\n'
+docker build -q -f tests/integracao/Dockerfile.parcial -t hyper-parcial . >/dev/null
+saida="$(docker run --rm hyper-parcial bash -c '
+  HYPER_LOCAL=/repo bash instalar.sh >/dev/null 2>&1
+  cat ~/.ai-hyper-setup/estado.json')"
+checar "pula o rtk"       '"item": "rtk", "estado": "ja-existia"'      "$saida"
+checar "pula o obsidian"  '"item": "obsidian", "estado": "ja-existia"' "$saida"
+
+# A segunda execucao e o teste que prova a idempotencia que o produto promete.
+printf 'segunda execucao\n'
+saida="$(docker run --rm hyper-limpo bash -c '
+  HYPER_LOCAL=/repo bash instalar.sh >/dev/null 2>&1
+  HYPER_LOCAL=/repo bash instalar.sh >/dev/null 2>&1
+  cat ~/.ai-hyper-setup/estado.json')"
+checar "rtk ja existia"   '"item": "rtk", "estado": "ja-existia"'               "$saida"
+checar "skill ja existia" '"item": "skill-hyper-setup", "estado": "ja-existia"' "$saida"
+
+printf '\n'
+if [ "$falhas" -gt 0 ]; then
+  printf '%d falha(s)\n' "$falhas"; exit 1
+fi
+printf 'tudo certo\n'

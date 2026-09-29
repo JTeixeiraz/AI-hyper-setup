@@ -23,3 +23,11 @@ jobs:
         with: { node-version: 20, cache: npm }
       - run: npm ci
       - run: npm test
+      - run: node --test tests/manifesto.test.mjs
+      - run: npm run manifesto && git diff --exit-code manifesto.json
+
+  integracao:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: ./tests/integracao/rodar.sh
