@@ -151,3 +151,18 @@ setup() {
   [ "$status" -eq 0 ]
   rm -rf "$tmp"
 }
+
+@test "flag_rtk mapeia cada agente para a variante certa" {
+  run flag_rtk claude; [ "$output" = "-g" ]
+  run flag_rtk codex;  [ "$output" = "-g --codex" ]
+  run flag_rtk agy;    [ "$output" = "-g --agent antigravity" ]
+}
+
+@test "instalar_rtk pula quando o rtk ja existe" {
+  PASSOS=()
+  tem() { [ "$1" = "rtk" ]; }
+  rtk() { echo "rtk 0.50.0"; }
+  AGENTE_ESCOLHIDO=claude
+  instalar_rtk
+  [[ "${PASSOS[0]}" == rtk\|ja-existia\|* ]]
+}

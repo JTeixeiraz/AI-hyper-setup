@@ -143,6 +143,43 @@ gravar_estado() {
   } > "$destino"
 }
 
+# O rtk init tem uma variante por agente. Verificado com `rtk init --help`
+# em 2026-09-29, v0.50.0.
+flag_rtk() {
+  case "$1" in
+    claude) echo "-g" ;;
+    codex)  echo "-g --codex" ;;
+    agy)    echo "-g --agent antigravity" ;;
+    *)      return 1 ;;
+  esac
+}
+
+instalar_rtk() {
+  if tem rtk; then
+    registrar rtk ja-existia "$(rtk --version 2>/dev/null | head -1)"
+  else
+    msg "${CINZA}instalando o RTK...${ZERA}"
+    if curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh >/dev/null 2>&1; then
+      export PATH="$HOME/.local/bin:$PATH"
+      registrar rtk instalado "$(rtk --version 2>/dev/null | head -1)"
+    else
+      registrar rtk falhou "o instalador do rtk nao completou"
+      return 0
+    fi
+  fi
+
+  # --auto-patch acrescenta o hook ao settings.json existente em vez de
+  # perguntar. Sem ele, em modo nao-interativo o rtk pula o patch e o hook
+  # nunca e registrado.
+  # shellcheck disable=SC2046
+  if rtk init $(flag_rtk "$AGENTE_ESCOLHIDO") --auto-patch >/dev/null 2>&1; then
+    registrar rtk-hook instalado "$AGENTE_ESCOLHIDO"
+  else
+    registrar rtk-hook falhou "rtk init nao completou"
+  fi
+  return 0
+}
+
 main() {
   msg "${FORTE}AI Hyper Setup${ZERA}"
 }
