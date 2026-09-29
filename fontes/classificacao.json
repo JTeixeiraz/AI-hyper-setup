@@ -1,0 +1,697 @@
+[
+  {
+    "nome": "academic-cv-builder",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "ad-spend-allocator",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "ai-search-visibility-aeo-geo-llmo",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "analytics-dashboard",
+    "origem": "git",
+    "upstream": "social-media-skills"
+  },
+  {
+    "nome": "application-form-filler",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "banner-design",
+    "origem": "plugin",
+    "upstream": "ui-ux-pro-max"
+  },
+  {
+    "nome": "biologo_genetico",
+    "origem": "bundled",
+    "caminho": "skills/biologo_genetico"
+  },
+  {
+    "nome": "bofu-seo-aeo-strategy",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "brag",
+    "origem": "builtin",
+    "nota": "ja vem com o agente ou marketplace oficial"
+  },
+  {
+    "nome": "brag-slim",
+    "origem": "builtin",
+    "nota": "ja vem com o agente ou marketplace oficial"
+  },
+  {
+    "nome": "brand",
+    "origem": "plugin",
+    "upstream": "ui-ux-pro-max"
+  },
+  {
+    "nome": "campaign-analyzer",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "career-changer-translator",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "caveman",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "cold-email-writer",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "content-matrix",
+    "origem": "git",
+    "upstream": "social-media-skills"
+  },
+  {
+    "nome": "cover-letter-generator",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "creative-portfolio-resume",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "design",
+    "origem": "plugin",
+    "upstream": "ui-ux-pro-max"
+  },
+  {
+    "nome": "design-master",
+    "origem": "bundled",
+    "caminho": "skills/design-master"
+  },
+  {
+    "nome": "design-system",
+    "origem": "plugin",
+    "upstream": "ui-ux-pro-max"
+  },
+  {
+    "nome": "emil-design",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "executive-resume-writer",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "find-skills",
+    "origem": "builtin",
+    "nota": "ja vem com o agente ou marketplace oficial"
+  },
+  {
+    "nome": "frontend-design",
+    "origem": "builtin",
+    "nota": "ja vem com o agente ou marketplace oficial"
+  },
+  {
+    "nome": "gemini-carousel",
+    "origem": "git",
+    "upstream": "social-media-skills"
+  },
+  {
+    "nome": "gemini-infographic",
+    "origem": "git",
+    "upstream": "social-media-skills"
+  },
+  {
+    "nome": "google-ads-account-audit",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "google-ads-campaign-builder",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "google-ads-keyword-engine",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "google-ads-optimizer",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "google-ads-scripts",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "google-merchant-center",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "graphic-designer",
+    "origem": "git",
+    "upstream": "social-media-skills"
+  },
+  {
+    "nome": "graphify",
+    "origem": "uv-tool",
+    "pacote": "graphifyy"
+  },
+  {
+    "nome": "higgsfield",
+    "origem": "git",
+    "upstream": "higgsfield"
+  },
+  {
+    "nome": "higgsfield-claude-skills",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "hook-generator",
+    "origem": "git",
+    "upstream": "social-media-skills"
+  },
+  {
+    "nome": "impeccable",
+    "origem": "git",
+    "upstream": "impeccable"
+  },
+  {
+    "nome": "impeccable-skill",
+    "origem": "git",
+    "upstream": "impeccable"
+  },
+  {
+    "nome": "interview-prep-generator",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "job-description-analyzer",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "link-building-digital-pr",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "linkedin-profile-optimizer",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "liquid_glass",
+    "origem": "bundled",
+    "caminho": "skills/liquid_glass"
+  },
+  {
+    "nome": "local-seo-google-business-profile",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "LUMI",
+    "origem": "bundled",
+    "caminho": "skills/LUMI"
+  },
+  {
+    "nome": "marketing-head",
+    "origem": "bundled",
+    "caminho": "skills/marketing-head"
+  },
+  {
+    "nome": "meta-ads-account-audit",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "meta-ads-campaign-builder",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "meta-ads-creative-engine",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "meta-ads-optimizer",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "meta-ads-playbook",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "meta-ads-tracking-setup",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "mobile-development",
+    "origem": "bundled",
+    "caminho": "skills/mobile-development"
+  },
+  {
+    "nome": "newsletter-voice",
+    "origem": "git",
+    "upstream": "social-media-skills"
+  },
+  {
+    "nome": "niche-research",
+    "origem": "git",
+    "upstream": "social-media-skills"
+  },
+  {
+    "nome": "offer-comparison-analyzer",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "on-page-seo-aeo-optimization",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "paid-media-reporter",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "paid-search-ads-playbook",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "pinned-comment",
+    "origem": "git",
+    "upstream": "social-media-skills"
+  },
+  {
+    "nome": "portfolio-case-study-writer",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "post-formatter",
+    "origem": "git",
+    "upstream": "social-media-skills"
+  },
+  {
+    "nome": "post-scorer",
+    "origem": "git",
+    "upstream": "social-media-skills"
+  },
+  {
+    "nome": "post-writer",
+    "origem": "git",
+    "upstream": "social-media-skills"
+  },
+  {
+    "nome": "profile-optimizer",
+    "origem": "git",
+    "upstream": "social-media-skills"
+  },
+  {
+    "nome": "prompt-picker",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "quote-post",
+    "origem": "git",
+    "upstream": "social-media-skills"
+  },
+  {
+    "nome": "react-liquid-glass",
+    "origem": "bundled",
+    "caminho": "skills/react-liquid-glass"
+  },
+  {
+    "nome": "reels-scripting",
+    "origem": "git",
+    "upstream": "social-media-skills"
+  },
+  {
+    "nome": "reference-list-builder",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "remotion-best-practices",
+    "origem": "symlink-local",
+    "nota": "symlink para projeto privado Birdy"
+  },
+  {
+    "nome": "remotion-captions",
+    "origem": "symlink-local",
+    "nota": "symlink para projeto privado Birdy"
+  },
+  {
+    "nome": "remotion-create",
+    "origem": "symlink-local",
+    "nota": "symlink para projeto privado Birdy"
+  },
+  {
+    "nome": "remotion-docs",
+    "origem": "symlink-local",
+    "nota": "symlink para projeto privado Birdy"
+  },
+  {
+    "nome": "remotion-interactivity",
+    "origem": "symlink-local",
+    "nota": "symlink para projeto privado Birdy"
+  },
+  {
+    "nome": "remotion-maps",
+    "origem": "symlink-local",
+    "nota": "symlink para projeto privado Birdy"
+  },
+  {
+    "nome": "remotion-markup",
+    "origem": "symlink-local",
+    "nota": "symlink para projeto privado Birdy"
+  },
+  {
+    "nome": "remotion-multimedia",
+    "origem": "symlink-local",
+    "nota": "symlink para projeto privado Birdy"
+  },
+  {
+    "nome": "remotion-render",
+    "origem": "symlink-local",
+    "nota": "symlink para projeto privado Birdy"
+  },
+  {
+    "nome": "remotion-saas",
+    "origem": "symlink-local",
+    "nota": "symlink para projeto privado Birdy"
+  },
+  {
+    "nome": "remotion-studio",
+    "origem": "symlink-local",
+    "nota": "symlink para projeto privado Birdy"
+  },
+  {
+    "nome": "remotion-upgrade",
+    "origem": "symlink-local",
+    "nota": "symlink para projeto privado Birdy"
+  },
+  {
+    "nome": "resume-ats-optimizer",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "resume-bullet-writer",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "resume-formatter",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "resume-quantifier",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "resume-section-builder",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "resume-tailor",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "resume-version-manager",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "salary-negotiation-prep",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "seo",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-aeo-content-strategy",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "seo-agentic",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-ahrefs",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-audit",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-backlinks",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-bing",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-cluster",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-competitor-pages",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-content",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-content-brief",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-dataforseo",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-drift",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-ecommerce",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-firecrawl",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-flow",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-geo",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-google",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-hreflang",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-image-gen",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-images",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-keyword-research-intent-mapping",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "seo-local",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-maps",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-matomo",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-max-kt",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "seo-page",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-plan",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-profound",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-programmatic",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-reporting-measurement",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "seo-schema",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-seranking",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-sitemap",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-sxo",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-technical",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "seo-unlighthouse",
+    "origem": "git",
+    "upstream": "claude-seo"
+  },
+  {
+    "nome": "slides",
+    "origem": "plugin",
+    "upstream": "ui-ux-pro-max"
+  },
+  {
+    "nome": "synced",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "taste-skill",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "tech-resume-optimizer",
+    "origem": "git",
+    "upstream": "resume-skills"
+  },
+  {
+    "nome": "technical-seo-ai-crawler-audit",
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "ui-styling",
+    "origem": "plugin",
+    "upstream": "ui-ux-pro-max"
+  },
+  {
+    "nome": "ui-ux-pro-max",
+    "origem": "plugin",
+    "upstream": "ui-ux-pro-max"
+  },
+  {
+    "nome": "voice-builder",
+    "origem": "git",
+    "upstream": "social-media-skills"
+  },
+  {
+    "nome": "xpe-db-query",
+    "origem": "EXCLUIDA",
+    "nota": "expoe host de banco de producao"
+  },
+  {
+    "nome": "youtube-thumbnail",
+    "origem": "git",
+    "upstream": "social-media-skills"
+  }
+]

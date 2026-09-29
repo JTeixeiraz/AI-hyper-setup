@@ -1,0 +1,39 @@
+{
+  "claude-seo": {
+    "repo": "https://github.com/AgriciDaniel/claude-seo",
+    "licenca": "MIT",
+    "raiz": "skills",
+    "ignorar": ["ms-playwright", "node_modules"]
+  },
+  "resume-skills": {
+    "repo": "https://github.com/sumeet0701/ResumeSkills",
+    "licenca": "MIT",
+    "raiz": "skills",
+    "ignorar": ["node_modules"]
+  },
+  "social-media-skills": {
+    "repo": "https://github.com/charlie947/social-media-skills",
+    "licenca": "MIT",
+    "raiz": "skills",
+    "ignorar": ["node_modules"]
+  },
+  "ui-ux-pro-max": {
+    "repo": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+    "licenca": "MIT",
+    "marketplace": "nextlevelbuilder/ui-ux-pro-max-skill",
+    "raiz": ".claude/skills",
+    "ignorar": ["node_modules"]
+  },
+  "impeccable": {
+    "repo": "https://github.com/pbakaus/impeccable",
+    "licenca": "Apache-2.0",
+    "raiz": ".agents/skills",
+    "ignorar": ["site", "tests", "node_modules"]
+  },
+  "higgsfield": {
+    "repo": "https://github.com/OSideMedia/higgsfield-ai-prompt-skill",
+    "licenca": "MIT",
+    "raiz": ".",
+    "ignorar": ["node_modules"]
+  }
+}

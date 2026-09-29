@@ -1,0 +1,1135 @@
+{
+  "versao": 1,
+  "gerado": "2026-09-29",
+  "skills": [
+    {
+      "nome": "academic-cv-builder",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/academic-cv-builder"
+    },
+    {
+      "nome": "ad-spend-allocator",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "ai-search-visibility-aeo-geo-llmo",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "analytics-dashboard",
+      "origem": "git",
+      "repo": "https://github.com/charlie947/social-media-skills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/analytics-dashboard"
+    },
+    {
+      "nome": "application-form-filler",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/application-form-filler"
+    },
+    {
+      "nome": "banner-design",
+      "origem": "plugin",
+      "repo": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "marketplace": "nextlevelbuilder/ui-ux-pro-max-skill"
+    },
+    {
+      "nome": "biologo_genetico",
+      "origem": "bundled",
+      "caminho": "skills/biologo_genetico"
+    },
+    {
+      "nome": "bofu-seo-aeo-strategy",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "brag",
+      "origem": "builtin",
+      "nota": "ja vem com o agente ou marketplace oficial"
+    },
+    {
+      "nome": "brag-slim",
+      "origem": "builtin",
+      "nota": "ja vem com o agente ou marketplace oficial"
+    },
+    {
+      "nome": "brand",
+      "origem": "plugin",
+      "repo": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "marketplace": "nextlevelbuilder/ui-ux-pro-max-skill"
+    },
+    {
+      "nome": "campaign-analyzer",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "career-changer-translator",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/career-changer-translator"
+    },
+    {
+      "nome": "caveman",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "cold-email-writer",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/cold-email-writer"
+    },
+    {
+      "nome": "content-matrix",
+      "origem": "git",
+      "repo": "https://github.com/charlie947/social-media-skills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/content-matrix"
+    },
+    {
+      "nome": "cover-letter-generator",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/cover-letter-generator"
+    },
+    {
+      "nome": "creative-portfolio-resume",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/creative-portfolio-resume"
+    },
+    {
+      "nome": "design",
+      "origem": "plugin",
+      "repo": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "marketplace": "nextlevelbuilder/ui-ux-pro-max-skill"
+    },
+    {
+      "nome": "design-master",
+      "origem": "bundled",
+      "caminho": "skills/design-master"
+    },
+    {
+      "nome": "design-system",
+      "origem": "plugin",
+      "repo": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "marketplace": "nextlevelbuilder/ui-ux-pro-max-skill"
+    },
+    {
+      "nome": "emil-design",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "executive-resume-writer",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/executive-resume-writer"
+    },
+    {
+      "nome": "find-skills",
+      "origem": "builtin",
+      "nota": "ja vem com o agente ou marketplace oficial"
+    },
+    {
+      "nome": "frontend-design",
+      "origem": "builtin",
+      "nota": "ja vem com o agente ou marketplace oficial"
+    },
+    {
+      "nome": "gemini-carousel",
+      "origem": "git",
+      "repo": "https://github.com/charlie947/social-media-skills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/gemini-carousel"
+    },
+    {
+      "nome": "gemini-infographic",
+      "origem": "git",
+      "repo": "https://github.com/charlie947/social-media-skills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/gemini-infographic"
+    },
+    {
+      "nome": "google-ads-account-audit",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "google-ads-campaign-builder",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "google-ads-keyword-engine",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "google-ads-optimizer",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "google-ads-scripts",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "google-merchant-center",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "graphic-designer",
+      "origem": "git",
+      "repo": "https://github.com/charlie947/social-media-skills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/graphic-designer"
+    },
+    {
+      "nome": "graphify",
+      "origem": "uv-tool",
+      "pacote": "graphifyy"
+    },
+    {
+      "nome": "higgsfield",
+      "origem": "git",
+      "repo": "https://github.com/OSideMedia/higgsfield-ai-prompt-skill",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "./higgsfield"
+    },
+    {
+      "nome": "higgsfield-claude-skills",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "hook-generator",
+      "origem": "git",
+      "repo": "https://github.com/charlie947/social-media-skills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/hook-generator"
+    },
+    {
+      "nome": "impeccable",
+      "origem": "git",
+      "repo": "https://github.com/pbakaus/impeccable",
+      "licenca": "Apache-2.0",
+      "ignorar": [
+        "site",
+        "tests",
+        "node_modules"
+      ],
+      "subpasta": ".agents/skills/impeccable"
+    },
+    {
+      "nome": "impeccable-skill",
+      "origem": "git",
+      "repo": "https://github.com/pbakaus/impeccable",
+      "licenca": "Apache-2.0",
+      "ignorar": [
+        "site",
+        "tests",
+        "node_modules"
+      ],
+      "subpasta": ".agents/skills/impeccable-skill"
+    },
+    {
+      "nome": "interview-prep-generator",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/interview-prep-generator"
+    },
+    {
+      "nome": "job-description-analyzer",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/job-description-analyzer"
+    },
+    {
+      "nome": "link-building-digital-pr",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "linkedin-profile-optimizer",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/linkedin-profile-optimizer"
+    },
+    {
+      "nome": "liquid_glass",
+      "origem": "bundled",
+      "caminho": "skills/liquid_glass"
+    },
+    {
+      "nome": "local-seo-google-business-profile",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "LUMI",
+      "origem": "bundled",
+      "caminho": "skills/LUMI"
+    },
+    {
+      "nome": "marketing-head",
+      "origem": "bundled",
+      "caminho": "skills/marketing-head"
+    },
+    {
+      "nome": "meta-ads-account-audit",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "meta-ads-campaign-builder",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "meta-ads-creative-engine",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "meta-ads-optimizer",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "meta-ads-playbook",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "meta-ads-tracking-setup",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "mobile-development",
+      "origem": "bundled",
+      "caminho": "skills/mobile-development"
+    },
+    {
+      "nome": "newsletter-voice",
+      "origem": "git",
+      "repo": "https://github.com/charlie947/social-media-skills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/newsletter-voice"
+    },
+    {
+      "nome": "niche-research",
+      "origem": "git",
+      "repo": "https://github.com/charlie947/social-media-skills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/niche-research"
+    },
+    {
+      "nome": "offer-comparison-analyzer",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/offer-comparison-analyzer"
+    },
+    {
+      "nome": "on-page-seo-aeo-optimization",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "paid-media-reporter",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "paid-search-ads-playbook",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "pinned-comment",
+      "origem": "git",
+      "repo": "https://github.com/charlie947/social-media-skills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/pinned-comment"
+    },
+    {
+      "nome": "portfolio-case-study-writer",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/portfolio-case-study-writer"
+    },
+    {
+      "nome": "post-formatter",
+      "origem": "git",
+      "repo": "https://github.com/charlie947/social-media-skills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/post-formatter"
+    },
+    {
+      "nome": "post-scorer",
+      "origem": "git",
+      "repo": "https://github.com/charlie947/social-media-skills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/post-scorer"
+    },
+    {
+      "nome": "post-writer",
+      "origem": "git",
+      "repo": "https://github.com/charlie947/social-media-skills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/post-writer"
+    },
+    {
+      "nome": "profile-optimizer",
+      "origem": "git",
+      "repo": "https://github.com/charlie947/social-media-skills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/profile-optimizer"
+    },
+    {
+      "nome": "prompt-picker",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "quote-post",
+      "origem": "git",
+      "repo": "https://github.com/charlie947/social-media-skills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/quote-post"
+    },
+    {
+      "nome": "react-liquid-glass",
+      "origem": "bundled",
+      "caminho": "skills/react-liquid-glass"
+    },
+    {
+      "nome": "reels-scripting",
+      "origem": "git",
+      "repo": "https://github.com/charlie947/social-media-skills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/reels-scripting"
+    },
+    {
+      "nome": "reference-list-builder",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/reference-list-builder"
+    },
+    {
+      "nome": "resume-ats-optimizer",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/resume-ats-optimizer"
+    },
+    {
+      "nome": "resume-bullet-writer",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/resume-bullet-writer"
+    },
+    {
+      "nome": "resume-formatter",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/resume-formatter"
+    },
+    {
+      "nome": "resume-quantifier",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/resume-quantifier"
+    },
+    {
+      "nome": "resume-section-builder",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/resume-section-builder"
+    },
+    {
+      "nome": "resume-tailor",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/resume-tailor"
+    },
+    {
+      "nome": "resume-version-manager",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/resume-version-manager"
+    },
+    {
+      "nome": "salary-negotiation-prep",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/salary-negotiation-prep"
+    },
+    {
+      "nome": "seo",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo"
+    },
+    {
+      "nome": "seo-aeo-content-strategy",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "seo-agentic",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-agentic"
+    },
+    {
+      "nome": "seo-ahrefs",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-ahrefs"
+    },
+    {
+      "nome": "seo-audit",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-audit"
+    },
+    {
+      "nome": "seo-backlinks",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-backlinks"
+    },
+    {
+      "nome": "seo-bing",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-bing"
+    },
+    {
+      "nome": "seo-cluster",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-cluster"
+    },
+    {
+      "nome": "seo-competitor-pages",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-competitor-pages"
+    },
+    {
+      "nome": "seo-content",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-content"
+    },
+    {
+      "nome": "seo-content-brief",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-content-brief"
+    },
+    {
+      "nome": "seo-dataforseo",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-dataforseo"
+    },
+    {
+      "nome": "seo-drift",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-drift"
+    },
+    {
+      "nome": "seo-ecommerce",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-ecommerce"
+    },
+    {
+      "nome": "seo-firecrawl",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-firecrawl"
+    },
+    {
+      "nome": "seo-flow",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-flow"
+    },
+    {
+      "nome": "seo-geo",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-geo"
+    },
+    {
+      "nome": "seo-google",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-google"
+    },
+    {
+      "nome": "seo-hreflang",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-hreflang"
+    },
+    {
+      "nome": "seo-image-gen",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-image-gen"
+    },
+    {
+      "nome": "seo-images",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-images"
+    },
+    {
+      "nome": "seo-keyword-research-intent-mapping",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "seo-local",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-local"
+    },
+    {
+      "nome": "seo-maps",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-maps"
+    },
+    {
+      "nome": "seo-matomo",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-matomo"
+    },
+    {
+      "nome": "seo-max-kt",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "seo-page",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-page"
+    },
+    {
+      "nome": "seo-plan",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-plan"
+    },
+    {
+      "nome": "seo-profound",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-profound"
+    },
+    {
+      "nome": "seo-programmatic",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-programmatic"
+    },
+    {
+      "nome": "seo-reporting-measurement",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "seo-schema",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-schema"
+    },
+    {
+      "nome": "seo-seranking",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-seranking"
+    },
+    {
+      "nome": "seo-sitemap",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-sitemap"
+    },
+    {
+      "nome": "seo-sxo",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-sxo"
+    },
+    {
+      "nome": "seo-technical",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-technical"
+    },
+    {
+      "nome": "seo-unlighthouse",
+      "origem": "git",
+      "repo": "https://github.com/AgriciDaniel/claude-seo",
+      "licenca": "MIT",
+      "ignorar": [
+        "ms-playwright",
+        "node_modules"
+      ],
+      "subpasta": "skills/seo-unlighthouse"
+    },
+    {
+      "nome": "slides",
+      "origem": "plugin",
+      "repo": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "marketplace": "nextlevelbuilder/ui-ux-pro-max-skill"
+    },
+    {
+      "nome": "synced",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "taste-skill",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "tech-resume-optimizer",
+      "origem": "git",
+      "repo": "https://github.com/sumeet0701/ResumeSkills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/tech-resume-optimizer"
+    },
+    {
+      "nome": "technical-seo-ai-crawler-audit",
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "ui-styling",
+      "origem": "plugin",
+      "repo": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "marketplace": "nextlevelbuilder/ui-ux-pro-max-skill"
+    },
+    {
+      "nome": "ui-ux-pro-max",
+      "origem": "plugin",
+      "repo": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "marketplace": "nextlevelbuilder/ui-ux-pro-max-skill"
+    },
+    {
+      "nome": "voice-builder",
+      "origem": "git",
+      "repo": "https://github.com/charlie947/social-media-skills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/voice-builder"
+    },
+    {
+      "nome": "youtube-thumbnail",
+      "origem": "git",
+      "repo": "https://github.com/charlie947/social-media-skills",
+      "licenca": "MIT",
+      "ignorar": [
+        "node_modules"
+      ],
+      "subpasta": "skills/youtube-thumbnail"
+    }
+  ],
+  "mcps": [
+    {
+      "nome": "ruflo",
+      "comando": "npx",
+      "args": [
+        "-y",
+        "ruflo@latest",
+        "mcp",
+        "start"
+      ],
+      "env": {
+        "CLAUDE_FLOW_MODE": "v3",
+        "CLAUDE_FLOW_TOPOLOGY": "hierarchical-mesh"
+      }
+    },
+    {
+      "nome": "ruv-swarm",
+      "comando": "npx",
+      "args": [
+        "-y",
+        "ruv-swarm",
+        "mcp",
+        "start"
+      ],
+      "env": {},
+      "opcional": true
+    }
+  ],
+  "plugins": [
+    {
+      "nome": "superpowers",
+      "marketplace": "claude-plugins-official"
+    },
+    {
+      "nome": "frontend-design",
+      "marketplace": "claude-code-plugins"
+    },
+    {
+      "nome": "figma",
+      "marketplace": "claude-plugins-official"
+    }
+  ],
+  "ferramentas": [
+    {
+      "nome": "rtk",
+      "verificar": "rtk --version"
+    },
+    {
+      "nome": "obsidian",
+      "verificar": "test -d ~/.config/obsidian"
+    }
+  ]
+}
