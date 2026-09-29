@@ -1,0 +1,203 @@
+:root {
+  --papel: #f7f5f0;
+  --tinta: #12100e;
+  --tinta-fraca: #5c5851;
+  --lime: #b8e986;
+  --painel: #12100e;
+  --painel-tinta: #f7f5f0;
+  --borda: #ddd8cf;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --papel: #12100e;
+    --tinta: #f7f5f0;
+    --tinta-fraca: #9a958c;
+    --painel: #1c1a17;
+    --painel-tinta: #f7f5f0;
+    --borda: #2e2b27;
+  }
+}
+
+:root[data-theme="dark"] {
+  --papel: #12100e;
+  --tinta: #f7f5f0;
+  --tinta-fraca: #9a958c;
+  --painel: #1c1a17;
+  --painel-tinta: #f7f5f0;
+  --borda: #2e2b27;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+.cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 68ch;
+  margin: 0 auto;
+  padding: 1rem 16px;
+}
+
+.marca {
+  font-weight: 700;
+}
+
+.lingua {
+  background: none;
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  color: var(--tinta);
+  padding: 6px 14px;
+  cursor: pointer;
+  min-height: 32px;
+}
+
+main {
+  max-width: 68ch;
+  margin: 0 auto;
+  padding: 0 16px 6rem;
+}
+
+section {
+  margin: 3rem 0;
+}
+
+h1 {
+  font-size: clamp(2rem, 6vw, 3rem);
+  line-height: 1.1;
+  margin: 0 0 0.5rem;
+}
+
+.subtitulo {
+  font-size: 1.15rem;
+  color: var(--tinta-fraca);
+  margin: 0 0 1.5rem;
+}
+
+.painel {
+  background: var(--painel);
+  color: var(--painel-tinta);
+  border-radius: 20px;
+  padding: 1.5rem;
+}
+
+.painel .nota {
+  color: #9a958c;
+}
+
+/* overflow-x no bloco, nao na pagina: o comando e longo e nao pode ser
+   quebrado, mas a pagina inteira nao deve rolar de lado por causa dele. */
+.comando {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: var(--painel);
+  color: var(--painel-tinta);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 13px;
+  overflow-x: auto;
+}
+
+.comando code {
+  flex: 1;
+  white-space: nowrap;
+}
+
+.comando button {
+  background: var(--lime);
+  color: #12100e;
+  border: 0;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  min-height: 32px;
+  flex-shrink: 0;
+}
+
+.nota {
+  color: var(--tinta-fraca);
+  font-size: 14px;
+}
+
+.abas [role="tablist"] {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--borda);
+}
+
+.aba {
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 8px 14px;
+  cursor: pointer;
+  color: #9a958c;
+  min-height: 44px;
+  font-size: 15px;
+}
+
+.aba.ativa {
+  color: var(--painel-tinta);
+  border-bottom-color: var(--lime);
+}
+
+.inventario {
+  list-style: none;
+  padding: 0;
+}
+
+.inventario li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--borda);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+td {
+  padding: 10px 8px 10px 0;
+  border-bottom: 1px solid var(--borda);
+  vertical-align: top;
+}
+
+a {
+  color: var(--tinta);
+  text-decoration-color: var(--lime);
+  text-decoration-thickness: 2px;
+}
+
+code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.9em;
+}
+
+footer {
+  max-width: 68ch;
+  margin: 0 auto;
+  padding: 2rem 16px;
+  border-top: 1px solid var(--borda);
+}
+
+@media (max-width: 480px) {
+  .comando {
+    font-size: 11px;
+  }
+  table {
+    font-size: 13px;
+  }
+}
