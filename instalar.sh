@@ -38,6 +38,77 @@ detectar_arq() {
   esac
 }
 
+AGENTES=()
+AGENTE_ESCOLHIDO=""
+
+# Onde cada agente guarda suas skills. Verificado em 2026-09-29.
+dir_skills() {
+  case "$1" in
+    claude) echo "$HOME/.claude/skills" ;;
+    codex)  echo "$HOME/.codex/skills" ;;
+    agy)    echo "$HOME/.gemini/config/skills" ;;
+    *)      return 1 ;;
+  esac
+}
+
+detectar_agentes() {
+  AGENTES=()
+  local a
+  for a in claude codex agy; do
+    tem "$a" && AGENTES+=("$a")
+  done
+  return 0
+}
+
+# Escolhe entre os agentes detectados. Roda por pipe na maioria das vezes
+# (curl | bash), entao nao ha teclado: ali assumir o primeiro e melhor que
+# travar esperando uma tecla que nunca vem.
+escolher_agente() {
+  if [ -n "${HYPER_AGENTE:-}" ]; then
+    AGENTE_ESCOLHIDO="$HYPER_AGENTE"
+    return 0
+  fi
+
+  if [ "${#AGENTES[@]}" -eq 0 ]; then
+    return 1
+  fi
+
+  if [ "${#AGENTES[@]}" -eq 1 ] || [ ! -t 0 ]; then
+    AGENTE_ESCOLHIDO="${AGENTES[0]}"
+    [ "${#AGENTES[@]}" -gt 1 ] &&
+      msg "${CINZA}varios agentes encontrados; usando ${AGENTE_ESCOLHIDO}${ZERA}"
+    return 0
+  fi
+
+  local sel=0 n=${#AGENTES[@]} primeira=1 tecla resto i
+  msg "Qual agente configurar?"
+  msg "${CINZA}setas para escolher, Enter para confirmar${ZERA}"
+  while true; do
+    [ "$primeira" -eq 0 ] && printf '\033[%dA' "$n"
+    primeira=0
+    for i in "${!AGENTES[@]}"; do
+      printf '\033[2K'
+      if [ "$i" -eq "$sel" ]; then
+        printf '  %s> %s%s\n' "$VERDE$FORTE" "${AGENTES[$i]}" "$ZERA"
+      else
+        printf '    %s\n' "${AGENTES[$i]}"
+      fi
+    done
+    IFS= read -rsn1 tecla </dev/tty || { AGENTE_ESCOLHIDO="${AGENTES[$sel]}"; return 0; }
+    case "$tecla" in
+      $'\x1b') read -rsn2 -t 0.05 resto </dev/tty || resto=""
+               case "$resto" in
+                 '[A') [ "$sel" -gt 0 ] && sel=$((sel - 1)) ;;
+                 '[B') [ "$sel" -lt $((n - 1)) ] && sel=$((sel + 1)) ;;
+               esac ;;
+      'k')     [ "$sel" -gt 0 ] && sel=$((sel - 1)) ;;
+      'j')     [ "$sel" -lt $((n - 1)) ] && sel=$((sel + 1)) ;;
+      '')      AGENTE_ESCOLHIDO="${AGENTES[$sel]}"; return 0 ;;
+      'q')     erro "Cancelado."; exit 1 ;;
+    esac
+  done
+}
+
 main() {
   msg "${FORTE}AI Hyper Setup${ZERA}"
 }

@@ -61,3 +61,49 @@ setup() {
   run detectar_arq
   [ "$output" = "x64" ]
 }
+
+@test "dir_skills devolve o caminho do claude" {
+  run dir_skills claude
+  [ "$output" = "$HOME/.claude/skills" ]
+}
+
+@test "dir_skills devolve o caminho do codex" {
+  run dir_skills codex
+  [ "$output" = "$HOME/.codex/skills" ]
+}
+
+@test "dir_skills devolve o caminho do agy" {
+  run dir_skills agy
+  [ "$output" = "$HOME/.gemini/config/skills" ]
+}
+
+@test "detectar_agentes acha os que existem no PATH" {
+  tem() { [ "$1" = "codex" ]; }
+  detectar_agentes
+  [ "${#AGENTES[@]}" -eq 1 ]
+  [ "${AGENTES[0]}" = "codex" ]
+}
+
+@test "detectar_agentes devolve vazio quando nao ha nenhum" {
+  tem() { return 1; }
+  detectar_agentes
+  [ "${#AGENTES[@]}" -eq 0 ]
+}
+
+@test "escolher_agente sem TTY cai no primeiro sem travar" {
+  run bash -c "source '${BATS_TEST_DIRNAME}/../instalar.sh'
+               AGENTES=(claude codex)
+               escolher_agente < /dev/null
+               echo \$AGENTE_ESCOLHIDO"
+  [ "$status" -eq 0 ]
+  [ "${lines[-1]}" = "claude" ]
+}
+
+@test "HYPER_AGENTE vence a deteccao" {
+  run bash -c "source '${BATS_TEST_DIRNAME}/../instalar.sh'
+               HYPER_AGENTE=codex
+               AGENTES=(claude codex)
+               escolher_agente < /dev/null
+               echo \$AGENTE_ESCOLHIDO"
+  [ "${lines[-1]}" = "codex" ]
+}
