@@ -321,9 +321,19 @@ main() {
   msg "${CINZA}a IA termina a instalacao e diz o que instalou e o que ja existia${ZERA}"
 }
 
-# Sourceavel para teste: so roda quando executado diretamente.
-# Precisa ser `if` e nao `[ ... ] && main`: a forma com && devolve 1 quando o
-# arquivo e sourceado, e com set -e isso aborta quem sourceou.
-if [ "${BASH_SOURCE[0]}" = "$0" ]; then
+# Roda main quando o script e executado, nao quando e sourceado.
+#
+# Sao tres situacoes, e as tres importam:
+#   curl | bash        BASH_SOURCE vazio, $0 = "bash"   -> roda
+#   bash instalar.sh   BASH_SOURCE[0] = $0              -> roda
+#   source instalar.sh BASH_SOURCE[0] != $0             -> nao roda
+#
+# O `:-` nao e defensivo a toa: lendo do stdin o array fica vazio, e sob
+# `set -u` a expansao sem ele mata o script antes de main — que e justamente
+# o caminho do curl, o principal do produto.
+#
+# E precisa ser `if` e nao `[ ... ] && main`: a forma com && devolve 1 quando
+# o arquivo e sourceado, e com set -e isso aborta quem sourceou.
+if [ -z "${BASH_SOURCE[0]:-}" ] || [ "${BASH_SOURCE[0]:-}" = "$0" ]; then
   main "$@"
 fi

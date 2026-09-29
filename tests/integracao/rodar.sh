@@ -29,6 +29,17 @@ checar "instala o rtk"         '"item": "rtk", "estado": "instalado"'           
 checar "instala a skill"       '"item": "skill-hyper-setup", "estado": "instalado"' "$saida"
 checar "manda rodar a skill"   '/hyper-setup-initialize'                         "$saida"
 
+# O produto e um curl canalizado para o bash. Rodar por arquivo nao exercita
+# o mesmo caminho: pelo stdin o array BASH_SOURCE fica vazio.
+printf 'pelo stdin (curl | bash)\n'
+saida="$(docker run --rm hyper-limpo bash -c 'cat instalar.sh | HYPER_LOCAL=/repo bash 2>&1')"
+checar "main roda pelo stdin"  'Terreno preparado'  "$saida"
+if printf '%s' "$saida" | grep -q 'unbound variable'; then
+  printf '  FALHA sem unbound variable\n'; falhas=$((falhas + 1))
+else
+  printf '  ok    sem unbound variable\n'
+fi
+
 printf 'maquina parcial\n'
 docker build -q -f tests/integracao/Dockerfile.parcial -t hyper-parcial . >/dev/null
 saida="$(docker run --rm hyper-parcial bash -c '

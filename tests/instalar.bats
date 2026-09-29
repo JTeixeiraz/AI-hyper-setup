@@ -261,3 +261,20 @@ setup() {
   [ "$(cat "$tmp/skills/hyper-setup-initialize/SKILL.md")" = "conteudo novo" ]
   rm -rf "$tmp"
 }
+
+# curl | bash entrega o script pelo stdin, e ali o array BASH_SOURCE fica
+# vazio. Rodar por arquivo nao exercita esse caminho — e ele e o caminho
+# principal do produto.
+@test "roda main quando o script chega pelo stdin (curl | bash)" {
+  run bash -c "cat '${BATS_TEST_DIRNAME}/../instalar.sh' | HYPER_AGENTE=claude bash 2>&1 | head -3"
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"AI Hyper Setup"* ]]
+  [[ "$output" != *"unbound variable"* ]]
+}
+
+@test "nao roda main ao ser sourceado" {
+  run bash -c "source '${BATS_TEST_DIRNAME}/../instalar.sh'; echo FIM"
+  [ "$status" -eq 0 ]
+  [[ "$output" != *"sistema:"* ]]
+  [[ "${lines[-1]}" == "FIM" ]]
+}
