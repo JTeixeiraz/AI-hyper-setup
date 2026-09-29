@@ -352,11 +352,6 @@
       "dica": "upstream nao localizado em 2026-09-29"
     },
     {
-      "nome": "LUMI",
-      "origem": "bundled",
-      "caminho": "skills/LUMI"
-    },
-    {
       "nome": "marketing-head",
       "origem": "bundled",
       "caminho": "skills/marketing-head"
@@ -1108,6 +1103,16 @@
       "opcional": true
     }
   ],
+  "marketplaces": {
+    "claude-plugins-official": {
+      "source": "github",
+      "repo": "anthropics/claude-plugins-official"
+    },
+    "claude-code-plugins": {
+      "source": "github",
+      "repo": "anthropics/claude-code"
+    }
+  },
   "plugins": [
     {
       "nome": "superpowers",

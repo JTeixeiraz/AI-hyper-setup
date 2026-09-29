@@ -27,7 +27,7 @@ const FAMILIAS = {
 };
 
 const PLUGIN_UIUX = "banner-design brand design design-system slides ui-styling ui-ux-pro-max";
-const BUNDLED = `LUMI biologo_genetico liquid_glass react-liquid-glass marketing-head
+const BUNDLED = `biologo_genetico liquid_glass react-liquid-glass marketing-head
   mobile-development design-master`;
 const BUILTIN = "brag brag-slim find-skills frontend-design";
 const SYMLINK_LOCAL = `remotion-best-practices remotion-captions remotion-create remotion-docs

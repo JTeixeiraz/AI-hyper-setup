@@ -48,9 +48,11 @@ Por origem:
   para o diretorio de skills. **Respeite `ignorar`**: esses diretorios sao cache
   ou material de site, nao conteudo da skill. Copiar `ms-playwright` arrasta
   658 MB de navegadores por nada.
-- **`plugin`** — instrua o usuario a rodar `/plugin marketplace add <marketplace>`
-  seguido de `/plugin install <nome>@<marketplace>`. Voce nao consegue instalar
-  plugin por conta propria; registre como `pendente-usuario`.
+- **`plugin`** — no Claude Code, plugin e configuracao, nao download: escreva
+  as duas chaves no `~/.claude/settings.json` e ele instala sozinho na proxima
+  abertura. Veja "Plugins" em `referencias/relatorio.md`. Mandar o usuario
+  rodar `/plugin install` a mao seria deixar metade do trabalho na mesa.
+  Nos outros agentes, registre como `nao-aplicavel`.
 - **`uv-tool`** — `uv tool install <pacote>`. Se `uv` nao existir, registre como
   falha com a instrucao de instalar o `uv`.
 - **`bundled`** — copie de `~/.ai-hyper-setup/<caminho>`.

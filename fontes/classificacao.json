@@ -230,11 +230,6 @@
     "dica": "upstream nao localizado em 2026-09-29"
   },
   {
-    "nome": "LUMI",
-    "origem": "bundled",
-    "caminho": "skills/LUMI"
-  },
-  {
     "nome": "marketing-head",
     "origem": "bundled",
     "caminho": "skills/marketing-head"

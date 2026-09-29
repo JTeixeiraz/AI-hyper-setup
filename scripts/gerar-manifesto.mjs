@@ -49,6 +49,12 @@ export function gerar(upstreams, classificacao) {
       { nome: "ruv-swarm", comando: "npx",
         args: ["-y", "ruv-swarm", "mcp", "start"], env: {}, opcional: true },
     ],
+    // O repo de cada marketplace vai junto: sem ele a skill teria de
+    // adivinhar a fonte para registrar em extraKnownMarketplaces.
+    marketplaces: {
+      "claude-plugins-official": { source: "github", repo: "anthropics/claude-plugins-official" },
+      "claude-code-plugins":     { source: "github", repo: "anthropics/claude-code" },
+    },
     plugins: [
       { nome: "superpowers",     marketplace: "claude-plugins-official" },
       { nome: "frontend-design", marketplace: "claude-code-plugins" },

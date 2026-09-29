@@ -58,6 +58,32 @@ configuracao de alguem e o pior resultado possivel desta skill.
 
 Faca um backup em `settings.json.bak-pre-hyper` antes de gravar.
 
+## Plugins (so Claude Code)
+
+Plugin nao se baixa: registra-se. Duas chaves no `~/.claude/settings.json`, e o
+Claude Code resolve na proxima abertura.
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": { "source": { "source": "github", "repo": "anthropics/claude-plugins-official" } }
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true
+  }
+}
+```
+
+O `repo` de cada marketplace esta em `manifesto.marketplaces`. A chave de
+`enabledPlugins` e sempre `<nome>@<marketplace>`.
+
+**Mescle, nao substitua** — as duas chaves costumam ja ter entradas do usuario.
+Plugin ja presente em `enabledPlugins` fica como esta, mesmo que esteja `false`:
+desligado e uma escolha dele, nao um item faltando.
+
+Depois de gravar, diga ao usuario que os plugins entram na proxima vez que ele
+abrir o agente. Sem esse aviso ele vai procurar o `/superpowers` e nao achar.
+
 ### Codex — `~/.codex/hooks.json`
 
 Mesma logica, mesmo cuidado, arquivo diferente.
