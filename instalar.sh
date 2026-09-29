@@ -222,6 +222,66 @@ instalar_obsidian() {
   return 0
 }
 
+# Baixa para um diretorio temporario e so move para BASE quando completa.
+# Rede caindo no meio nao pode deixar ~/.ai-hyper-setup pela metade: a skill
+# leria um manifesto truncado e instalaria a suite incompleta sem avisar.
+#
+# HYPER_LOCAL instala a partir de um diretorio ja existente, sem rede. E o
+# caminho que os testes de integracao usam, e serve a quem prefere clonar o
+# repositorio e conferir antes de instalar.
+baixar_repo() {
+  local tmp origem
+  tmp="$(mktemp -d)"
+
+  if [ -n "${HYPER_LOCAL:-}" ] && [ -d "$HYPER_LOCAL" ]; then
+    origem="$tmp/local"
+    cp -R "$HYPER_LOCAL" "$origem"
+  elif curl -fsSL "https://codeload.github.com/${REPO}/tar.gz/refs/heads/main" \
+         -o "$tmp/repo.tar.gz" 2>/dev/null &&
+       tar -xzf "$tmp/repo.tar.gz" -C "$tmp" 2>/dev/null; then
+    origem="$(find "$tmp" -maxdepth 1 -type d -name 'AI-hyper-setup-*' | head -1)"
+  elif tem git && git clone --depth 1 "https://github.com/${REPO}.git" "$tmp/clone" >/dev/null 2>&1; then
+    origem="$tmp/clone"
+  else
+    rm -rf "$tmp"
+    erro "Nao consegui baixar o repositorio. Verifique a conexao e tente de novo."
+    return 2
+  fi
+
+  if [ -z "$origem" ] || [ ! -d "$origem" ]; then
+    rm -rf "$tmp"
+    erro "O download completou mas o conteudo nao veio como esperado."
+    return 2
+  fi
+
+  rm -rf "$BASE"
+  mkdir -p "$(dirname "$BASE")"
+  mv "$origem" "$BASE"
+  rm -rf "$tmp"
+  registrar repositorio instalado "$BASE"
+  return 0
+}
+
+instalar_skill() {
+  local destino
+  destino="$(dir_skills "$AGENTE_ESCOLHIDO")/hyper-setup-initialize"
+
+  if [ -e "$destino" ]; then
+    registrar skill-hyper-setup ja-existia "$destino"
+    return 0
+  fi
+
+  if [ ! -d "$BASE/skills/hyper-setup-initialize" ]; then
+    registrar skill-hyper-setup falhou "a skill nao veio no repositorio baixado"
+    return 0
+  fi
+
+  mkdir -p "$(dirname "$destino")"
+  cp -R "$BASE/skills/hyper-setup-initialize" "$destino"
+  registrar skill-hyper-setup instalado "$destino"
+  return 0
+}
+
 main() {
   msg "${FORTE}AI Hyper Setup${ZERA}"
 }

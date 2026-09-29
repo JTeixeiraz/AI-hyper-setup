@@ -206,3 +206,58 @@ setup() {
   run instalar_obsidian
   [ "$status" -eq 0 ]
 }
+
+@test "baixar_repo sai com 2 e nao deixa sujeira quando a rede falha" {
+  local tmp; tmp="$(mktemp -d)"
+  BASE="$tmp/base"
+  curl() { return 7; }
+  git()  { return 1; }
+  run baixar_repo
+  [ "$status" -eq 2 ]
+  [ ! -d "$BASE" ]
+  rm -rf "$tmp"
+}
+
+@test "baixar_repo usa HYPER_LOCAL em vez de baixar" {
+  local tmp; tmp="$(mktemp -d)"
+  mkdir -p "$tmp/origem/skills"
+  echo "conteudo" > "$tmp/origem/manifesto.json"
+  PASSOS=()
+  BASE="$tmp/base"
+  HYPER_LOCAL="$tmp/origem"
+  curl() { return 7; }
+  run baixar_repo
+  [ "$status" -eq 0 ]
+  rm -rf "$tmp"
+}
+
+@test "instalar_skill pula quando a skill ja existe" {
+  local tmp; tmp="$(mktemp -d)"
+  PASSOS=()
+  BASE="$tmp/base"
+  mkdir -p "$BASE/skills/hyper-setup-initialize"
+  echo "conteudo" > "$BASE/skills/hyper-setup-initialize/SKILL.md"
+  mkdir -p "$tmp/skills/hyper-setup-initialize"
+  echo "ja estava aqui" > "$tmp/skills/hyper-setup-initialize/SKILL.md"
+  dir_skills() { echo "$tmp/skills"; }
+  AGENTE_ESCOLHIDO=claude
+  instalar_skill
+  [[ "${PASSOS[0]}" == skill-hyper-setup\|ja-existia\|* ]]
+  [ "$(cat "$tmp/skills/hyper-setup-initialize/SKILL.md")" = "ja estava aqui" ]
+  rm -rf "$tmp"
+}
+
+@test "instalar_skill copia quando nao existe" {
+  local tmp; tmp="$(mktemp -d)"
+  PASSOS=()
+  BASE="$tmp/base"
+  mkdir -p "$BASE/skills/hyper-setup-initialize"
+  echo "conteudo novo" > "$BASE/skills/hyper-setup-initialize/SKILL.md"
+  mkdir -p "$tmp/skills"
+  dir_skills() { echo "$tmp/skills"; }
+  AGENTE_ESCOLHIDO=claude
+  instalar_skill
+  [[ "${PASSOS[0]}" == skill-hyper-setup\|instalado\|* ]]
+  [ "$(cat "$tmp/skills/hyper-setup-initialize/SKILL.md")" = "conteudo novo" ]
+  rm -rf "$tmp"
+}
