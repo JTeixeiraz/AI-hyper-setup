@@ -21,6 +21,23 @@ msg()  { printf '%s\n' "$*"; }
 erro() { printf '\033[38;5;203m%s\033[0m\n' "$*" >&2; }
 tem()  { command -v "$1" >/dev/null 2>&1; }
 
+detectar_so() {
+  case "$(uname -s)" in
+    Linux*)               echo linux ;;
+    Darwin*)              echo macos ;;
+    MINGW*|MSYS*|CYGWIN*) echo windows ;;
+    *)                    echo desconhecido ;;
+  esac
+}
+
+detectar_arq() {
+  case "$(uname -m)" in
+    x86_64|amd64)  echo x64 ;;
+    arm64|aarch64) echo arm64 ;;
+    *)             echo desconhecido ;;
+  esac
+}
+
 main() {
   msg "${FORTE}AI Hyper Setup${ZERA}"
 }
