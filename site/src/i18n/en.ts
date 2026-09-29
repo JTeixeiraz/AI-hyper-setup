@@ -18,6 +18,13 @@ export const en: Dicionario = {
   passo3t: "Run the skill",
   passo3d: "The AI installs the suite and hands back two lists: what it added now, and what was already there.",
 
+  skillsTitulo: "skills, installed in one go",
+  skillsTexto: "From SEO to résumés, design to paid media. All from public repositories, fetched from the source.",
+  agenteClaude: "Installs skills, MCPs, plugins and the session hooks.",
+  agenteCodex: "Installs skills and registers RTK in AGENTS.md.",
+  agenteAgy: "Installs skills and configures RTK.",
+  chamadaTitulo: "Ready to run",
+  chamadaNota: "{n} skills with a known source, plus RTK and Obsidian. Whatever you already have stays as it is.",
   instalarTitulo: "Install",
   instalarNota: "Runs on Linux, macOS and Windows (Git Bash or WSL).",
   depoisTitulo: "After the command",

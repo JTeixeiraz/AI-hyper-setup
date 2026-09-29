@@ -3,7 +3,8 @@ import manifesto from "../../manifesto.json";
 import { useLingua } from "./i18n";
 import { Comando } from "./componentes/Comando";
 import { Lingua } from "./componentes/Lingua";
-import { Revela } from "./componentes/Revela";
+import { Terminal } from "./componentes/Terminal";
+import { Skills } from "./componentes/Skills";
 import { Escudo, Certo, Marca } from "./componentes/Icones";
 
 const UPSTREAMS = [
@@ -15,16 +16,9 @@ const UPSTREAMS = [
   ["OSideMedia/higgsfield-ai-prompt-skill", 1, "MIT"],
 ] as const;
 
-const AGENTES = [
-  ["Claude Code", "~/.claude/skills/"],
-  ["Codex", "~/.codex/skills/"],
-  ["Antigravity", "~/.gemini/config/skills/"],
-] as const;
-
-// As contagens vem do manifesto, nao digitadas a mao: o site nao pode
-// envelhecer em relacao ao produto.
 const COM_FONTE = manifesto.skills.filter((s) => s.origem !== "agente").length;
 const SEM_FONTE = manifesto.skills.filter((s) => s.origem === "agente").length;
+const TOTAL = manifesto.skills.length;
 
 function useRolou() {
   const [rolou, setRolou] = useState(false);
@@ -41,6 +35,12 @@ export function App() {
   const { t } = useLingua();
   const rolou = useRolou();
 
+  const agentes = [
+    ["Claude Code", "~/.claude/skills/", t.agenteClaude],
+    ["Codex", "~/.codex/skills/", t.agenteCodex],
+    ["Antigravity", "~/.gemini/config/skills/", t.agenteAgy],
+  ] as const;
+
   const passos = [
     [t.passo1t, t.passo1d],
     [t.passo2t, t.passo2d],
@@ -50,7 +50,7 @@ export function App() {
   return (
     <>
       <header className="cabecalho" data-rolou={rolou ? "sim" : "nao"}>
-        <div className="casca">
+        <div className="larga cabecalho__linha">
           <span className="marca">
             <Marca />
             AI Hyper Setup
@@ -60,104 +60,91 @@ export function App() {
       </header>
 
       <main>
-        <section className="heroi casca">
-          <h1>{t.titulo}</h1>
-          <p className="sub">{t.subtitulo}</p>
-          <Comando />
-          <p className="selo">
-            <Escudo size={15} />
-            {t.heroiNota}
-          </p>
-        </section>
-
-        <section className="casca">
-          <h2>{t.passosTitulo}</h2>
-          <Revela>
-            <ol className="passos">
-              {passos.map(([titulo, desc], i) => (
-                <li key={titulo} style={{ ["--i" as string]: i }}>
-                  <div>
-                    <strong>{titulo}</strong>
-                    <span>{desc}</span>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </Revela>
-          <p className="legenda" style={{ marginTop: "var(--e-2)", fontSize: "var(--t-pequeno)" }}>
-            {t.instalarNota}
-          </p>
-        </section>
-
-        <section className="casca">
-          <h2>{t.inventarioTitulo}</h2>
-          <Revela>
-            <dl className="linhas">
-              <div style={{ ["--i" as string]: 0 }}>
-                <dt>{t.inventarioSkills}</dt>
-                <dd>
-                  <span className="numero">{COM_FONTE}</span>
-                </dd>
-              </div>
-              <div style={{ ["--i" as string]: 1 }}>
-                <dt>{t.inventarioMcps}</dt>
-                <dd>
-                  <span className="numero">{manifesto.mcps.length}</span>
-                </dd>
-              </div>
-              <div style={{ ["--i" as string]: 2 }}>
-                <dt>RTK</dt>
-                <dd className="desc">{t.inventarioFerramentas}</dd>
-              </div>
-              <div style={{ ["--i" as string]: 3 }}>
-                <dt>Obsidian</dt>
-                <dd className="desc">{t.inventarioObsidian}</dd>
-              </div>
-            </dl>
-          </Revela>
-        </section>
-
-        <section className="casca">
-          <div className="painel">
-            <h2>{t.respeitaTitulo}</h2>
-            <p>{t.respeitaTexto}</p>
-            <ul className="garantias">
-              <li>
-                <Certo />
-                <span>
-                  <b>{t.garantia1t}</b> {t.garantia1d}
-                </span>
-              </li>
-              <li>
-                <Certo />
-                <span>
-                  <b>{t.garantia2t}</b> {t.garantia2d}
-                </span>
-              </li>
-              <li>
-                <Certo />
-                <span>
-                  <b>{t.garantia3t}</b> {t.garantia3d}
-                </span>
-              </li>
-            </ul>
+        {/* O heroi e escuro de ponta a ponta: e onde o terminal mora, e um
+            terminal sobre papel branco seria um recorte, nao uma cena. */}
+        <section className="heroi">
+          <div className="larga heroi__grade">
+            <div className="heroi__texto">
+              <h1>{t.titulo}</h1>
+              <p className="sub">{t.subtitulo}</p>
+              <Comando />
+              <p className="selo">
+                <Escudo size={15} />
+                {t.heroiNota}
+              </p>
+            </div>
+            <Terminal />
           </div>
         </section>
 
-        <section className="casca">
+        <section className="skills-secao">
+          <div className="larga">
+            <div className="skills-cab">
+              <h2>
+                <span className="conta">{TOTAL}</span> {t.skillsTitulo}
+              </h2>
+              <p className="legenda">{t.skillsTexto}</p>
+            </div>
+          </div>
+          <Skills />
+          <div className="larga">
+            <p className="legenda pequena">
+              {t.semFonte.replace("{n}", String(SEM_FONTE))}
+            </p>
+          </div>
+        </section>
+
+        <section className="larga">
+          <div className="duas">
+            <div>
+              <h2>{t.passosTitulo}</h2>
+              <ol className="passos">
+                {passos.map(([titulo, desc]) => (
+                  <li key={titulo}>
+                    <strong>{titulo}</strong>
+                    <span>{desc}</span>
+                  </li>
+                ))}
+              </ol>
+              <p className="legenda pequena">{t.instalarNota}</p>
+            </div>
+
+            <div className="painel">
+              <h2>{t.respeitaTitulo}</h2>
+              <p>{t.respeitaTexto}</p>
+              <ul className="garantias">
+                {[
+                  [t.garantia1t, t.garantia1d],
+                  [t.garantia2t, t.garantia2d],
+                  [t.garantia3t, t.garantia3d],
+                ].map(([b, d]) => (
+                  <li key={b}>
+                    <Certo />
+                    <span>
+                      <b>{b}</b> {d}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section className="larga">
           <h2>{t.agentesTitulo}</h2>
           <p className="legenda">{t.agentesSkills}</p>
-          <div className="linhas">
-            {AGENTES.map(([nome, dir]) => (
-              <div key={nome}>
-                <span className="rotulo">{nome}</span>
-                <span className="valor">{dir}</span>
+          <div className="agentes">
+            {agentes.map(([nome, dir, desc]) => (
+              <div className="agente" key={nome}>
+                <h3>{nome}</h3>
+                <p>{desc}</p>
+                <code>{dir}</code>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="casca">
+        <section className="larga">
           <h2>{t.licencasTitulo}</h2>
           <p className="legenda">{t.licencasTexto}</p>
           <div className="linhas">
@@ -172,13 +159,18 @@ export function App() {
               </div>
             ))}
           </div>
-          <p className="legenda" style={{ marginTop: "var(--e-2)", fontSize: "var(--t-pequeno)" }}>
-            {t.semFonte.replace("{n}", String(SEM_FONTE))}
+        </section>
+
+        <section className="larga chamada">
+          <h2>{t.chamadaTitulo}</h2>
+          <Comando />
+          <p className="legenda pequena">
+            {t.chamadaNota.replace("{n}", String(COM_FONTE))}
           </p>
         </section>
       </main>
 
-      <footer className="casca">
+      <footer className="larga">
         <div className="rodape">
           <span>MIT · JTeixeiraz</span>
           <a href="https://github.com/JTeixeiraz/AI-hyper-setup">GitHub</a>

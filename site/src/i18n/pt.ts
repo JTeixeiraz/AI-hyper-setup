@@ -14,6 +14,13 @@ export const pt = {
   passo3t: "Roda a skill",
   passo3d: "A IA instala a suíte e devolve duas listas: o que instalou agora e o que já existia.",
 
+  skillsTitulo: "skills, instaladas de uma vez",
+  skillsTexto: "Do SEO ao currículo, de design a mídia paga. Todas de repositórios públicos, baixadas da fonte.",
+  agenteClaude: "Instala skills, MCPs, plugins e os hooks de sessão.",
+  agenteCodex: "Instala skills e registra o RTK no AGENTS.md.",
+  agenteAgy: "Instala skills e configura o RTK.",
+  chamadaTitulo: "Pronto para rodar",
+  chamadaNota: "{n} skills com fonte conhecida, RTK e Obsidian. O que você já tem fica como está.",
   instalarTitulo: "Instalação",
   instalarNota: "Roda em Linux, macOS e Windows (Git Bash ou WSL).",
   depoisTitulo: "Depois do comando",
