@@ -25,6 +25,11 @@
     "upstream": "resume-skills"
   },
   {
+    "nome": "auditoria-visual",
+    "origem": "bundled",
+    "caminho": "skills/auditoria-visual"
+  },
+  {
     "nome": "banner-design",
     "origem": "plugin",
     "upstream": "ui-ux-pro-max"
@@ -663,6 +668,11 @@
     "nome": "technical-seo-ai-crawler-audit",
     "origem": "agente",
     "dica": "upstream nao localizado em 2026-09-29"
+  },
+  {
+    "nome": "tokens-oklch",
+    "origem": "bundled",
+    "caminho": "skills/tokens-oklch"
   },
   {
     "nome": "ui-styling",

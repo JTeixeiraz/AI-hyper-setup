@@ -163,6 +163,19 @@ flag_rtk() {
   esac
 }
 
+# O `rtk init` reescreve a configuracao do agente. Rodar a cada execucao mexia
+# no settings.json de quem so queria conferir se estava tudo instalado.
+rtk_hook_registrado() {
+  local arq
+  case "$AGENTE_ESCOLHIDO" in
+    claude) arq="$HOME/.claude/settings.json" ;;
+    codex)  arq="$HOME/.codex/hooks.json" ;;
+    agy)    arq="$HOME/.gemini/config/settings.json" ;;
+    *)      return 1 ;;
+  esac
+  [ -f "$arq" ] && grep -q 'rtk hook' "$arq" 2>/dev/null
+}
+
 instalar_rtk() {
   if tem rtk; then
     registrar rtk ja-existia "$(rtk --version 2>/dev/null | head -1)"
@@ -175,6 +188,11 @@ instalar_rtk() {
       registrar rtk falhou "o instalador do rtk nao completou"
       return 0
     fi
+  fi
+
+  if rtk_hook_registrado; then
+    registrar rtk-hook ja-existia "$AGENTE_ESCOLHIDO"
+    return 0
   fi
 
   # --auto-patch acrescenta o hook ao settings.json existente em vez de
@@ -231,15 +249,19 @@ instalar_obsidian() {
   return 0
 }
 
-# Baixa para um diretorio temporario e so move para BASE quando completa.
-# Rede caindo no meio nao pode deixar ~/.ai-hyper-setup pela metade: a skill
-# leria um manifesto truncado e instalaria a suite incompleta sem avisar.
+# Baixa para um diretorio temporario e so troca $BASE/repo quando completa.
+# Rede caindo no meio nao pode deixar a instalacao pela metade.
 #
-# HYPER_LOCAL instala a partir de um diretorio ja existente, sem rede. E o
-# caminho que os testes de integracao usam, e serve a quem prefere clonar o
-# repositorio e conferir antes de instalar.
+# O repositorio vive em $BASE/repo, nao em $BASE: o que a skill escreve depois
+# (o cerebro com o caminho do vault substituido, relatorios) mora ao lado e
+# sobrevive a uma reexecucao. Apagar $BASE inteiro apagaria isso em silencio,
+# e o produto promete o contrario.
+#
+# HYPER_LOCAL instala a partir de um diretorio ja existente, sem rede. Serve ao
+# teste de integracao e a quem prefere clonar e conferir antes de instalar.
 baixar_repo() {
-  local tmp origem
+  local tmp origem destino
+  destino="$BASE/repo"
   tmp="$(mktemp -d)"
 
   if [ -n "${HYPER_LOCAL:-}" ] && [ -d "$HYPER_LOCAL" ]; then
@@ -263,11 +285,19 @@ baixar_repo() {
     return 2
   fi
 
-  rm -rf "$BASE"
-  mkdir -p "$(dirname "$BASE")"
-  mv "$origem" "$BASE"
+  local ja_tinha=0
+  [ -d "$destino" ] && ja_tinha=1
+
+  mkdir -p "$BASE"
+  rm -rf "$destino"
+  mv "$origem" "$destino"
   rm -rf "$tmp"
-  registrar repositorio instalado "$BASE"
+
+  if [ "$ja_tinha" -eq 1 ]; then
+    registrar repositorio atualizado "$destino"
+  else
+    registrar repositorio instalado "$destino"
+  fi
   return 0
 }
 
@@ -280,13 +310,13 @@ instalar_skill() {
     return 0
   fi
 
-  if [ ! -d "$BASE/skills/hyper-setup-initialize" ]; then
+  if [ ! -d "$BASE/repo/skills/hyper-setup-initialize" ]; then
     registrar skill-hyper-setup falhou "a skill nao veio no repositorio baixado"
     return 0
   fi
 
   mkdir -p "$(dirname "$destino")"
-  cp -R "$BASE/skills/hyper-setup-initialize" "$destino"
+  cp -R "$BASE/repo/skills/hyper-setup-initialize" "$destino"
   registrar skill-hyper-setup instalado "$destino"
   return 0
 }

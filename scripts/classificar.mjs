@@ -28,7 +28,7 @@ const FAMILIAS = {
 
 const PLUGIN_UIUX = "banner-design brand design design-system slides ui-styling ui-ux-pro-max";
 const BUNDLED = `biologo_genetico liquid_glass react-liquid-glass marketing-head
-  mobile-development design-master`;
+  mobile-development design-master auditoria-visual tokens-oklch`;
 const BUILTIN = "brag brag-slim find-skills frontend-design";
 const SYMLINK_LOCAL = `remotion-best-practices remotion-captions remotion-create remotion-docs
   remotion-interactivity remotion-maps remotion-markup remotion-multimedia remotion-render

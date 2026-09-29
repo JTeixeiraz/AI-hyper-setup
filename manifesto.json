@@ -43,6 +43,11 @@
       "subpasta": "skills/application-form-filler"
     },
     {
+      "nome": "auditoria-visual",
+      "origem": "bundled",
+      "caminho": "skills/auditoria-visual"
+    },
+    {
       "nome": "banner-design",
       "origem": "plugin",
       "repo": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
@@ -1033,6 +1038,11 @@
       "nome": "technical-seo-ai-crawler-audit",
       "origem": "agente",
       "dica": "upstream nao localizado em 2026-09-29"
+    },
+    {
+      "nome": "tokens-oklch",
+      "origem": "bundled",
+      "caminho": "skills/tokens-oklch"
     },
     {
       "nome": "ui-styling",

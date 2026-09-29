@@ -235,8 +235,8 @@ setup() {
   local tmp; tmp="$(mktemp -d)"
   PASSOS=()
   BASE="$tmp/base"
-  mkdir -p "$BASE/skills/hyper-setup-initialize"
-  echo "conteudo" > "$BASE/skills/hyper-setup-initialize/SKILL.md"
+  mkdir -p "$BASE/repo/skills/hyper-setup-initialize"
+  echo "conteudo" > "$BASE/repo/skills/hyper-setup-initialize/SKILL.md"
   mkdir -p "$tmp/skills/hyper-setup-initialize"
   echo "ja estava aqui" > "$tmp/skills/hyper-setup-initialize/SKILL.md"
   dir_skills() { echo "$tmp/skills"; }
@@ -251,8 +251,8 @@ setup() {
   local tmp; tmp="$(mktemp -d)"
   PASSOS=()
   BASE="$tmp/base"
-  mkdir -p "$BASE/skills/hyper-setup-initialize"
-  echo "conteudo novo" > "$BASE/skills/hyper-setup-initialize/SKILL.md"
+  mkdir -p "$BASE/repo/skills/hyper-setup-initialize"
+  echo "conteudo novo" > "$BASE/repo/skills/hyper-setup-initialize/SKILL.md"
   mkdir -p "$tmp/skills"
   dir_skills() { echo "$tmp/skills"; }
   AGENTE_ESCOLHIDO=claude
@@ -277,4 +277,54 @@ setup() {
   [ "$status" -eq 0 ]
   [[ "$output" != *"sistema:"* ]]
   [[ "${lines[-1]}" == "FIM" ]]
+}
+
+# Critical #1 — o instalador prometia nao apagar nada e apagava tudo em BASE.
+@test "baixar_repo preserva o que nao veio do repositorio" {
+  local tmp; tmp="$(mktemp -d)"
+  PASSOS=()
+  BASE="$tmp/base"
+  mkdir -p "$tmp/origem/skills" "$BASE"
+  echo "manifesto" > "$tmp/origem/manifesto.json"
+  # Artefatos que a skill cria depois, e que uma reexecucao nao pode perder.
+  echo "relatorio da skill" > "$BASE/relatorio.md"
+  mkdir -p "$BASE/cerebro"
+  echo 'const VAULT = "/home/u/Meu Vault";' > "$BASE/cerebro/abrir.mjs"
+  HYPER_LOCAL="$tmp/origem"
+  baixar_repo
+  [ -f "$BASE/relatorio.md" ]
+  grep -q "Meu Vault" "$BASE/cerebro/abrir.mjs"
+  [ -f "$BASE/repo/manifesto.json" ]
+  rm -rf "$tmp"
+}
+
+@test "baixar_repo reporta atualizado quando o repo ja estava la" {
+  local tmp; tmp="$(mktemp -d)"
+  PASSOS=()
+  BASE="$tmp/base"
+  mkdir -p "$tmp/origem/skills" "$BASE/repo"
+  HYPER_LOCAL="$tmp/origem"
+  baixar_repo
+  [[ "${PASSOS[0]}" == repositorio\|atualizado\|* ]]
+  rm -rf "$tmp"
+}
+
+# Critical #3 — rtk init reescrevia o settings.json do usuario a cada execucao.
+@test "instalar_rtk nao repete o init quando o hook ja esta registrado" {
+  local tmp; tmp="$(mktemp -d)"
+  PASSOS=()
+  HOME="$tmp"
+  mkdir -p "$tmp/.claude"
+  printf '{"hooks":{"PreToolUse":[{"matcher":"Bash","hooks":[{"command":"rtk hook claude"}]}]}}' \
+    > "$tmp/.claude/settings.json"
+  tem() { [ "$1" = "rtk" ]; }
+  rtk() { echo "rtk 0.50.0"; }
+  AGENTE_ESCOLHIDO=claude
+  instalar_rtk
+  local viu_init=0
+  for p in "${PASSOS[@]}"; do
+    [[ "$p" == rtk-hook\|ja-existia\|* ]] && viu_init=1
+  done
+  [ "$viu_init" -eq 1 ]
+  rm -rf "$tmp"
 }

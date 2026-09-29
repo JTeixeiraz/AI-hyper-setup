@@ -24,7 +24,7 @@ Linux, macOS e Windows (Git Bash ou WSL).
 
 ## O que instala
 
-- **93 skills** com fonte conhecida, de seis repositórios públicos
+- **95 skills** com fonte conhecida, de seis repositórios públicos
 - **RTK**, o proxy que corta até 90% da saída de terminal que seu agente lê
 - **Obsidian**, com uma skill que lê e escreve o contexto entre sessões
 - **Servidores MCP** e os plugins oficiais

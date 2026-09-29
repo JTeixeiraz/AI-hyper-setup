@@ -48,6 +48,9 @@ claude-flow e do RTK, e apaga-los quebra o ambiente do usuario.
 }
 ```
 
+Os caminhos apontam para `~/.ai-hyper-setup/cerebro/`, a **copia** — nunca para
+`repo/cerebro/`, que e substituido a cada reexecucao do instalador.
+
 A logica de mesclagem esta implementada em `~/.ai-hyper-setup/cerebro/hooks.mjs`,
 na funcao `mesclarHook(settings, evento, comando)`. Use-a em vez de reescrever:
 ela ja preserva os hooks existentes e nao duplica um comando ja registrado.

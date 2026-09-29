@@ -10,7 +10,19 @@ voce instala a suite e relata o resultado.
 
 ## Antes de tudo
 
-Leia `~/.ai-hyper-setup/estado.json` e `~/.ai-hyper-setup/manifesto.json`.
+Leia `~/.ai-hyper-setup/estado.json` e `~/.ai-hyper-setup/repo/manifesto.json`.
+
+O layout separa o que e baixado do que e seu:
+
+```
+~/.ai-hyper-setup/
+├── estado.json     escrito pelo instalador
+├── repo/           o repositorio; uma reexecucao TROCA esta pasta inteira
+└── cerebro/        voce cria; sobrevive a reexecucao
+```
+
+**Nunca escreva dentro de `repo/`.** O que voce escrever ali some na proxima vez
+que o usuario rodar o instalador, e some em silencio.
 
 Se algum dos dois nao existir, pare e diga:
 
@@ -55,7 +67,7 @@ Por origem:
   Nos outros agentes, registre como `nao-aplicavel`.
 - **`uv-tool`** — `uv tool install <pacote>`. Se `uv` nao existir, registre como
   falha com a instrucao de instalar o `uv`.
-- **`bundled`** — copie de `~/.ai-hyper-setup/<caminho>`.
+- **`bundled`** — copie de `~/.ai-hyper-setup/repo/<caminho>`.
 - **`builtin`** — nao faca nada. Ja vem com o agente.
 - **`agente`** — procure a fonte na web pelo `nome` e pela `descricao`, usando a
   `dica` quando houver. **Se nao encontrar com confianca, registre como nao
@@ -85,10 +97,16 @@ Se existir mas nao for JSON valido, **nao grave**: registre a falha e siga.
    abertos. Se houver mais de um, pergunte qual usar.
 2. Sem nenhum vault, crie `~/Documentos/Obsidian Vault` (ou `~/Documents/...` se
    o sistema estiver em ingles) com um `.obsidian/` vazio dentro.
-3. Copie `~/.ai-hyper-setup/skills/cerebro-obsidian` para o diretorio de skills e
-   **substitua o marcador `{{VAULT}}`** pelo caminho encontrado — na skill e nos
-   dois arquivos de `~/.ai-hyper-setup/cerebro/`.
-4. Registre os hooks de sessao conforme `referencias/relatorio.md`.
+3. Copie `~/.ai-hyper-setup/repo/skills/cerebro-obsidian` para o diretorio de
+   skills e **substitua `{{VAULT}}`** pelo caminho encontrado.
+4. Copie `~/.ai-hyper-setup/repo/cerebro/` para **`~/.ai-hyper-setup/cerebro/`**
+   e substitua `{{VAULT}}` la tambem. A copia e obrigatoria: os hooks apontam
+   para esses arquivos, e se apontassem para dentro de `repo/` a proxima
+   execucao do instalador os devolveria ao marcador literal. O cerebro entao
+   pararia de ler o vault **sem erro nenhum** — `existsSync("{{VAULT}}")` e
+   falso e o script sai com codigo 0. O usuario perderia a memoria entre
+   sessoes sem uma linha avisando.
+5. Registre os hooks de sessao conforme `referencias/relatorio.md`.
 
 ## Fase 5 — O relatorio
 
