@@ -1,0 +1,15 @@
+{
+  "name": "ai-hyper-setup",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "bats tests/",
+    "lint": "docker run --rm -v \"$PWD:/mnt\" koalaman/shellcheck:stable instalar.sh",
+    "manifesto": "node scripts/gerar-manifesto.mjs",
+    "validar": "node scripts/validar-manifesto.mjs"
+  },
+  "devDependencies": {
+    "bats": "^1.11.0"
+  }
+}
