@@ -109,6 +109,40 @@ escolher_agente() {
   done
 }
 
+PASSOS=()
+SO=""
+ARQ=""
+
+registrar() { PASSOS+=("$1|$2|${3:-}"); }
+
+# Escreve o estado.json a mao, sem jq: o formato e fixo e conhecido, e uma
+# dependencia a mais no caminho do curl e um ponto a mais de falha.
+# A skill le este arquivo para nao precisar adivinhar o que o script fez.
+gravar_estado() {
+  local destino="$1"
+  mkdir -p "$(dirname "$destino")"
+  {
+    printf '{\n'
+    printf '  "versao": 1,\n'
+    printf '  "quando": "%s",\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+    printf '  "so": "%s",\n' "$SO"
+    printf '  "arquitetura": "%s",\n' "$ARQ"
+    printf '  "agente": { "nome": "%s", "skills": "%s" },\n' \
+      "$AGENTE_ESCOLHIDO" "$(dir_skills "$AGENTE_ESCOLHIDO")"
+    printf '  "passos": [\n'
+    local i item estado detalhe virgula
+    for i in "${!PASSOS[@]}"; do
+      IFS='|' read -r item estado detalhe <<< "${PASSOS[$i]}"
+      virgula=","
+      [ "$i" -eq $(( ${#PASSOS[@]} - 1 )) ] && virgula=""
+      printf '    { "item": "%s", "estado": "%s", "detalhe": "%s" }%s\n' \
+        "$item" "$estado" "$detalhe" "$virgula"
+    done
+    printf '  ]\n'
+    printf '}\n'
+  } > "$destino"
+}
+
 main() {
   msg "${FORTE}AI Hyper Setup${ZERA}"
 }

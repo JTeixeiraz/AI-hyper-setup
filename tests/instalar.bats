@@ -107,3 +107,47 @@ setup() {
                echo \$AGENTE_ESCOLHIDO"
   [ "${lines[-1]}" = "codex" ]
 }
+
+@test "registrar acumula passos" {
+  PASSOS=()
+  registrar rtk instalado "v0.50.0"
+  registrar obsidian ja-existia "1.13.7"
+  [ "${#PASSOS[@]}" -eq 2 ]
+}
+
+@test "gravar_estado produz JSON valido" {
+  local tmp; tmp="$(mktemp -d)"
+  PASSOS=(); SO=linux; ARQ=x64; AGENTE_ESCOLHIDO=claude
+  registrar rtk instalado "v0.50.0"
+  gravar_estado "$tmp/estado.json"
+  run node -e "JSON.parse(require('fs').readFileSync('$tmp/estado.json','utf8'))"
+  [ "$status" -eq 0 ]
+  rm -rf "$tmp"
+}
+
+@test "gravar_estado registra item, estado e detalhe" {
+  local tmp; tmp="$(mktemp -d)"
+  PASSOS=(); SO=linux; ARQ=x64; AGENTE_ESCOLHIDO=claude
+  registrar rtk instalado "v0.50.0"
+  gravar_estado "$tmp/estado.json"
+  run node -e "
+    const e=JSON.parse(require('fs').readFileSync('$tmp/estado.json','utf8'));
+    const p=e.passos[0];
+    if(p.item!=='rtk'||p.estado!=='instalado'||p.detalhe!=='v0.50.0') process.exit(1);
+    if(e.agente.nome!=='claude') process.exit(1);
+  "
+  [ "$status" -eq 0 ]
+  rm -rf "$tmp"
+}
+
+@test "gravar_estado funciona em caminho com espaco" {
+  local tmp; tmp="$(mktemp -d)/com espaco no nome"
+  mkdir -p "$tmp"
+  PASSOS=(); SO=macos; ARQ=arm64; AGENTE_ESCOLHIDO=claude
+  registrar rtk instalado "v0.50.0"
+  gravar_estado "$tmp/estado.json"
+  [ -f "$tmp/estado.json" ]
+  run node -e "JSON.parse(require('fs').readFileSync('$tmp/estado.json','utf8'))"
+  [ "$status" -eq 0 ]
+  rm -rf "$tmp"
+}
