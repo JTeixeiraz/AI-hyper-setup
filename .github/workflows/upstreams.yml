@@ -1,0 +1,35 @@
+# Um upstream pode sumir, renomear a subpasta ou trocar de licenca. Queremos
+# saber por uma issue, nao por um usuario reclamando que a instalacao quebrou.
+name: upstreams
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  conferir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - id: validar
+        run: node scripts/validar-manifesto.mjs --rede
+        continue-on-error: true
+      - if: steps.validar.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: "Um upstream do manifesto mudou",
+              body: "O job semanal falhou. Veja os detalhes em "
+                  + `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}`
+                  + `/actions/runs/${context.runId}`,
+            });

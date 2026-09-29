@@ -55,3 +55,35 @@ test("symlinks locais nao entram no manifesto", () => {
   const m = gerar(upstreams, [{ nome: "remotion-maps", origem: "symlink-local" }]);
   assert.equal(m.skills.length, 0);
 });
+
+import { validarEstrutura } from "../scripts/validar-manifesto.mjs";
+
+test("aceita um manifesto bem formado", () => {
+  const { erros } = validarEstrutura({
+    versao: 1, skills: [{ nome: "x", origem: "agente" }],
+    mcps: [], plugins: [], ferramentas: [],
+  });
+  assert.deepEqual(erros, []);
+});
+
+test("recusa skill git sem repo", () => {
+  const { erros } = validarEstrutura({
+    versao: 1, skills: [{ nome: "x", origem: "git" }],
+    mcps: [], plugins: [], ferramentas: [],
+  });
+  assert.ok(erros.some((e) => /x.*sem repo/.test(e)));
+});
+
+test("recusa nomes duplicados", () => {
+  const { erros } = validarEstrutura({
+    versao: 1,
+    skills: [{ nome: "x", origem: "agente" }, { nome: "x", origem: "agente" }],
+    mcps: [], plugins: [], ferramentas: [],
+  });
+  assert.ok(erros.some((e) => /duplicad/.test(e)));
+});
+
+test("o manifesto real passa na validacao de estrutura", () => {
+  const m = JSON.parse(readFileSync("manifesto.json", "utf8"));
+  assert.deepEqual(validarEstrutura(m).erros, []);
+});
