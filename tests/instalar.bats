@@ -166,3 +166,43 @@ setup() {
   instalar_rtk
   [[ "${PASSOS[0]}" == rtk\|ja-existia\|* ]]
 }
+
+@test "obsidian_presente acha pelo binario no PATH" {
+  tem() { [ "$1" = "obsidian" ]; }
+  run obsidian_presente
+  [ "$status" -eq 0 ]
+}
+
+@test "obsidian_presente acha pelo diretorio de configuracao" {
+  local tmp; tmp="$(mktemp -d)"
+  mkdir -p "$tmp/.config/obsidian"
+  tem() { return 1; }
+  HOME="$tmp"
+  run obsidian_presente
+  [ "$status" -eq 0 ]
+  rm -rf "$tmp"
+}
+
+@test "obsidian_presente devolve 1 quando nao ha nada" {
+  local tmp; tmp="$(mktemp -d)"
+  tem() { return 1; }
+  HOME="$tmp"
+  run obsidian_presente
+  [ "$status" -ne 0 ]
+  rm -rf "$tmp"
+}
+
+@test "instalar_obsidian pula quando ja existe" {
+  PASSOS=()
+  obsidian_presente() { return 0; }
+  instalar_obsidian
+  [[ "${PASSOS[0]}" == obsidian\|ja-existia\|* ]]
+}
+
+@test "instalar_obsidian falha sem interromper" {
+  PASSOS=()
+  SO=desconhecido
+  obsidian_presente() { return 1; }
+  run instalar_obsidian
+  [ "$status" -eq 0 ]
+}

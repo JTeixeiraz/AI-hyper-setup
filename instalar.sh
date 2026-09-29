@@ -180,6 +180,48 @@ instalar_rtk() {
   return 0
 }
 
+# O Obsidian pode estar instalado como flatpak, snap, AppImage ou pacote
+# nativo, e nem todos deixam um binario no PATH. O diretorio de configuracao
+# e o sinal mais confiavel de que ele ja rodou nesta maquina.
+obsidian_presente() {
+  tem obsidian && return 0
+  [ -d "$HOME/.config/obsidian" ] && return 0
+  [ -d "$HOME/Library/Application Support/obsidian" ] && return 0
+  [ -n "${APPDATA:-}" ] && [ -d "${APPDATA}/obsidian" ] && return 0
+  return 1
+}
+
+# Falha aqui nao interrompe a instalacao: o Obsidian e importante para o
+# cerebro, mas o resto da suite funciona sem ele, e o relatorio final avisa.
+instalar_obsidian() {
+  if obsidian_presente; then
+    registrar obsidian ja-existia "detectado"
+    return 0
+  fi
+
+  msg "${CINZA}instalando o Obsidian...${ZERA}"
+  local ok=1
+  case "$SO" in
+    linux)
+      if   tem flatpak; then flatpak install -y flathub md.obsidian.Obsidian >/dev/null 2>&1 && ok=0
+      elif tem pacman;  then sudo pacman -S --noconfirm obsidian >/dev/null 2>&1 && ok=0
+      elif tem dnf;     then sudo dnf install -y obsidian >/dev/null 2>&1 && ok=0
+      elif tem snap;    then sudo snap install obsidian --classic >/dev/null 2>&1 && ok=0
+      fi ;;
+    macos)
+      tem brew && brew install --cask obsidian >/dev/null 2>&1 && ok=0 ;;
+    windows)
+      tem winget && winget install -e --id Obsidian.Obsidian >/dev/null 2>&1 && ok=0 ;;
+  esac
+
+  if [ "$ok" -eq 0 ]; then
+    registrar obsidian instalado "$SO"
+  else
+    registrar obsidian falhou "instale manualmente: https://obsidian.md/download"
+  fi
+  return 0
+}
+
 main() {
   msg "${FORTE}AI Hyper Setup${ZERA}"
 }
