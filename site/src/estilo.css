@@ -1,203 +1,374 @@
+/* ── AI Hyper Setup ───────────────────────────────────────────────────────
+   Cena: alguem acabou de reinstalar o sistema. Navegador numa metade da
+   tela, terminal vazio na outra. Ele le isto uma vez, por uns quarenta
+   segundos, decidindo se confia num script canalizado pro bash.
+
+   Dai o fundo branco: a pagina nao imita o terminal que esta ao lado dela.
+   O acento mineral carrega os paineis; a superficie nao carrega humor.
+   Estrategia de cor: Committed — o teal oxidado ocupa os blocos densos, e
+   o ferrugem (complemento) aparece uma vez, na acao.
+   ───────────────────────────────────────────────────────────────────────── */
+
 :root {
-  --papel: #f7f5f0;
-  --tinta: #12100e;
-  --tinta-fraca: #5c5851;
-  --lime: #b8e986;
-  --painel: #12100e;
-  --painel-tinta: #f7f5f0;
-  --borda: #ddd8cf;
+  /* A cena decide: o leitor esta numa mesa de dia, com o terminal escuro ao
+     lado desta aba. A pagina nao imita o terminal — ela e o documento que se
+     le antes de confiar nele. Por isso claro, e assumido: sem color-scheme
+     declarado, o navegador renderiza controles e barras de rolagem escuros
+     contra uma pagina branca. */
+  color-scheme: light;
+
+  /* superficie: branco literal, sem calor escondido */
+  --sup: oklch(1 0 0);
+  --sup-2: oklch(0.975 0.004 180);
+
+  /* tinta sobre a superficie, puxada para o azul-verde da marca */
+  --ink: oklch(0.22 0.018 185);
+  --ink-2: oklch(0.44 0.016 185);
+  --linha: oklch(0.905 0.008 185);
+
+  /* painel: teal oxidado, nao preto de terminal */
+  --pnl: oklch(0.225 0.038 188);
+  --pnl-2: oklch(0.285 0.036 188);
+  --pnl-ink: oklch(0.97 0.006 185);
+  --pnl-ink-2: oklch(0.755 0.022 185);
+  --pnl-linha: oklch(0.36 0.030 188);
+
+  /* marca e acao */
+  --marca: oklch(0.52 0.092 172);
+  --acao: oklch(0.47 0.165 30);
+  --acao-ink: oklch(1 0 0);
+
+  --sans: Archivo, ui-sans-serif, system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* escala modular 1.32, fluida no topo */
+  --t-micro: 0.78rem;
+  --t-pequeno: 0.875rem;
+  --t-corpo: 1.0625rem;
+  --t-medio: clamp(1.25rem, 0.9rem + 1.1vw, 1.45rem);
+  --t-grande: clamp(1.6rem, 1.1rem + 1.9vw, 2.1rem);
+  --t-heroi: clamp(2.6rem, 1.5rem + 4.4vw, 4.6rem);
+
+  /* ritmo: agrupamentos apertados, separacoes generosas */
+  --e-1: 0.5rem;
+  --e-2: 0.875rem;
+  --e-3: 1.5rem;
+  --e-4: 2.5rem;
+  --e-5: clamp(3.5rem, 8vw, 6rem);
+
+  --raio: 14px;
+  --raio-g: 22px;
+  --curva: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --z-base: 0;
+  --z-fixo: 100;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --papel: #12100e;
-    --tinta: #f7f5f0;
-    --tinta-fraca: #9a958c;
-    --painel: #1c1a17;
-    --painel-tinta: #f7f5f0;
-    --borda: #2e2b27;
-  }
-}
+* { box-sizing: border-box; }
 
-:root[data-theme="dark"] {
-  --papel: #12100e;
-  --tinta: #f7f5f0;
-  --tinta-fraca: #9a958c;
-  --painel: #1c1a17;
-  --painel-tinta: #f7f5f0;
-  --borda: #2e2b27;
-}
-
-* {
-  box-sizing: border-box;
-}
+html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
-  background: var(--papel);
-  color: var(--tinta);
-  font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, sans-serif;
+  background: var(--sup);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--t-corpo);
+  line-height: 1.6;
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
 }
 
+h1, h2, h3 {
+  text-wrap: balance;
+  line-height: 1.08;
+  letter-spacing: -0.028em;
+  margin: 0;
+}
+
+p { text-wrap: pretty; margin: 0; }
+
+a {
+  color: inherit;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--linha);
+  transition: text-decoration-color 160ms var(--curva);
+}
+a:hover { text-decoration-color: var(--marca); }
+
+:focus-visible {
+  outline: 2px solid var(--marca);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+code, kbd { font-family: var(--mono); font-size: 0.9em; }
+
+/* ── casca ────────────────────────────────────────────────────────────── */
+
+/* margin-inline, nao `margin: 0 auto`: a forma abreviada zera o margin-top e,
+   com especificidade (0,1,0), vence o `section { margin-top }` que da o ritmo
+   vertical — toda secao ficava colada na anterior. */
+.casca { max-width: 72ch; margin-inline: auto; padding: 0 20px; }
+
 .cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-fixo);
+  background: color-mix(in oklch, var(--sup) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms var(--curva);
+}
+.cabecalho[data-rolou="sim"] { border-bottom-color: var(--linha); }
+
+.cabecalho .casca {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  max-width: 68ch;
-  margin: 0 auto;
-  padding: 1rem 16px;
+  justify-content: space-between;
+  gap: var(--e-2);
+  min-height: 60px;
 }
 
 .marca {
-  font-weight: 700;
+  font-weight: 620;
+  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
 }
+.marca svg { color: var(--marca); flex-shrink: 0; }
 
 .lingua {
+  font: 500 var(--t-micro) / 1 var(--mono);
   background: none;
-  border: 1px solid var(--borda);
+  border: 1px solid var(--linha);
   border-radius: 999px;
-  color: var(--tinta);
-  padding: 6px 14px;
+  color: var(--ink-2);
+  padding: 0 15px;
+  min-height: 44px;
+  min-width: 44px;
   cursor: pointer;
-  min-height: 32px;
+  transition: border-color 160ms var(--curva), color 160ms var(--curva);
+}
+.lingua:hover { border-color: var(--ink-2); color: var(--ink); }
+
+/* ── secoes ───────────────────────────────────────────────────────────── */
+
+main { padding-bottom: var(--e-5); }
+section { margin-top: var(--e-5); }
+
+h2 {
+  font-size: var(--t-grande);
+  font-weight: 600;
+  margin-bottom: var(--e-2);
 }
 
-main {
-  max-width: 68ch;
-  margin: 0 auto;
-  padding: 0 16px 6rem;
+.legenda {
+  color: var(--ink-2);
+  max-width: 62ch;
 }
 
-section {
-  margin: 3rem 0;
+/* ── heroi ────────────────────────────────────────────────────────────── */
+
+.heroi { padding-top: clamp(2.5rem, 7vw, 4.5rem); }
+
+.heroi h1 {
+  font-size: var(--t-heroi);
+  font-weight: 640;
+  letter-spacing: -0.038em;
 }
 
-h1 {
-  font-size: clamp(2rem, 6vw, 3rem);
-  line-height: 1.1;
-  margin: 0 0 0.5rem;
+.heroi .sub {
+  font-size: var(--t-medio);
+  color: var(--ink-2);
+  margin-top: var(--e-2);
+  max-width: 34ch;
 }
 
-.subtitulo {
-  font-size: 1.15rem;
-  color: var(--tinta-fraca);
-  margin: 0 0 1.5rem;
+/* ── o comando ────────────────────────────────────────────────────────── */
+
+.comando {
+  margin-top: var(--e-4);
+  background: var(--pnl);
+  color: var(--pnl-ink);
+  border-radius: var(--raio);
+  padding: 4px 4px 4px 0;
+  display: flex;
+  align-items: center;
+  gap: var(--e-1);
 }
+
+/* O comando nao se quebra, mas quem rola de lado e o bloco — nunca a
+   pagina. Sem isto, a linha longa empurra a largura do documento. */
+.comando .linha {
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  padding: 12px 0 12px 16px;
+  scrollbar-width: thin;
+  /* O comando nao cabe em 72ch. A mascara avisa que ha mais a direita;
+     sem ela a linha so parece cortada. */
+  mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+}
+.comando code {
+  font-size: var(--t-pequeno);
+  white-space: nowrap;
+  display: block;
+}
+.comando .cifrao { color: var(--pnl-ink-2); user-select: none; margin-right: 10px; }
+
+.copiar {
+  flex-shrink: 0;
+  font: 500 var(--t-pequeno) / 1 var(--sans);
+  background: var(--acao);
+  color: var(--acao-ink);
+  border: 0;
+  border-radius: 10px;
+  padding: 0 16px;
+  min-height: 44px;
+  min-width: 96px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: filter 160ms var(--curva);
+}
+.copiar:hover { filter: brightness(1.12); }
+.copiar svg { flex-shrink: 0; }
+
+.selo {
+  margin-top: var(--e-2);
+  font-size: var(--t-pequeno);
+  color: var(--ink-2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.selo svg { color: var(--marca); flex-shrink: 0; }
+
+/* ── passos: sequencia real, por isso numerada ────────────────────────── */
+
+.passos { list-style: none; padding: 0; margin: 0; counter-reset: p; }
+.passos li {
+  counter-increment: p;
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: var(--e-2);
+  padding: var(--e-2) 0;
+  border-bottom: 1px solid var(--linha);
+}
+.passos li:last-child { border-bottom: 0; }
+.passos li::before {
+  content: counter(p);
+  font: 500 var(--t-pequeno) / 1.55 var(--mono);
+  color: var(--marca);
+}
+.passos strong { font-weight: 580; display: block; }
+.passos span { color: var(--ink-2); font-size: var(--t-pequeno); }
+.passos code {
+  background: var(--sup-2);
+  border: 1px solid var(--linha);
+  border-radius: 6px;
+  padding: 1px 6px;
+}
+
+/* ── painel: o bloco de confianca ─────────────────────────────────────── */
 
 .painel {
-  background: var(--painel);
-  color: var(--painel-tinta);
-  border-radius: 20px;
-  padding: 1.5rem;
+  background: var(--pnl);
+  color: var(--pnl-ink);
+  border-radius: var(--raio-g);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
 }
+.painel h2 { color: var(--pnl-ink); }
+.painel p { color: var(--pnl-ink-2); }
 
-.painel .nota {
-  color: #9a958c;
-}
-
-/* overflow-x no bloco, nao na pagina: o comando e longo e nao pode ser
-   quebrado, mas a pagina inteira nao deve rolar de lado por causa dele. */
-.comando {
-  display: flex;
+.garantias { list-style: none; padding: 0; margin: var(--e-3) 0 0; display: grid; gap: var(--e-2); }
+.garantias li {
+  display: grid;
+  grid-template-columns: 20px 1fr;
   gap: 12px;
-  align-items: center;
-  background: var(--painel);
-  color: var(--painel-tinta);
-  border-radius: 12px;
-  padding: 12px 16px;
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
-  font-size: 13px;
-  overflow-x: auto;
+  align-items: start;
+  font-size: var(--t-pequeno);
+  color: var(--pnl-ink-2);
+}
+.garantias svg { color: var(--marca); margin-top: 3px; flex-shrink: 0; }
+.garantias b { color: var(--pnl-ink); font-weight: 560; }
+
+/* ── linhas de dado: nao sao cartoes ──────────────────────────────────── */
+
+.linhas { display: grid; margin-top: var(--e-3); }
+.linhas > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--e-2);
+  align-items: baseline;
+  padding: var(--e-2) 0;
+  border-top: 1px solid var(--linha);
+}
+.linhas > div:last-child { border-bottom: 1px solid var(--linha); }
+.linhas dt, .linhas .rotulo { font-weight: 520; }
+.linhas dd, .linhas .valor {
+  margin: 0;
+  color: var(--ink-2);
+  font: 400 var(--t-pequeno) / 1.5 var(--mono);
+  text-align: right;
+}
+/* A descricao ocupa a linha inteira e volta para a fonte de texto: herdar o
+   mono alinhado a direita do `dd` deixava a frase ilegivel. */
+.linhas .desc {
+  grid-column: 1 / -1;
+  color: var(--ink-2);
+  font: 400 var(--t-pequeno) / 1.55 var(--sans);
+  text-align: left;
 }
 
-.comando code {
-  flex: 1;
-  white-space: nowrap;
+.numero { font: 600 var(--t-medio) / 1 var(--mono); color: var(--marca); }
+
+/* ── revelacao ────────────────────────────────────────────────────────────
+   So transforma; nunca mexe na opacidade. Uma revelacao que zera opacity
+   entrega a secao em branco quando a transicao nao dispara — aba em segundo
+   plano, renderizador headless, captura de pagina inteira. O texto fica
+   legivel em todos esses casos e o movimento e um bonus.
+   ───────────────────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: no-preference) {
+  .revela[data-visivel="nao"] > * { transform: translateY(14px); }
+  .revela > * {
+    transition: transform 460ms var(--curva);
+    transition-delay: calc(var(--i, 0) * 60ms);
+  }
 }
 
-.comando button {
-  background: var(--lime);
-  color: #12100e;
-  border: 0;
-  border-radius: 8px;
-  padding: 6px 12px;
-  cursor: pointer;
-  min-height: 32px;
-  flex-shrink: 0;
-}
+/* ── rodape ───────────────────────────────────────────────────────────── */
 
-.nota {
-  color: var(--tinta-fraca);
-  font-size: 14px;
-}
-
-.abas [role="tablist"] {
+.rodape {
+  border-top: 1px solid var(--linha);
+  padding: var(--e-3) 0;
+  font-size: var(--t-pequeno);
+  color: var(--ink-2);
   display: flex;
-  gap: 4px;
-  border-bottom: 1px solid var(--borda);
+  flex-wrap: wrap;
+  gap: var(--e-2) var(--e-3);
+  justify-content: space-between;
 }
 
-.aba {
-  background: none;
-  border: 0;
-  border-bottom: 2px solid transparent;
-  padding: 8px 14px;
-  cursor: pointer;
-  color: #9a958c;
+/* Alvo de toque de 44px tambem no link isolado do rodape: a excecao da
+   WCAG 2.5.8 vale para link dentro de frase, nao para um link que esta
+   sozinho numa linha. */
+.rodape a {
+  display: inline-flex;
+  align-items: center;
   min-height: 44px;
-  font-size: 15px;
 }
 
-.aba.ativa {
-  color: var(--painel-tinta);
-  border-bottom-color: var(--lime);
-}
-
-.inventario {
-  list-style: none;
-  padding: 0;
-}
-
-.inventario li {
-  padding: 10px 0;
-  border-bottom: 1px solid var(--borda);
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 15px;
-}
-
-td {
-  padding: 10px 8px 10px 0;
-  border-bottom: 1px solid var(--borda);
-  vertical-align: top;
-}
-
-a {
-  color: var(--tinta);
-  text-decoration-color: var(--lime);
-  text-decoration-thickness: 2px;
-}
-
-code {
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
-  font-size: 0.9em;
-}
-
-footer {
-  max-width: 68ch;
-  margin: 0 auto;
-  padding: 2rem 16px;
-  border-top: 1px solid var(--borda);
-}
-
-@media (max-width: 480px) {
-  .comando {
-    font-size: 11px;
-  }
-  table {
-    font-size: 13px;
-  }
+@media (max-width: 560px) {
+  .comando { flex-direction: column; align-items: stretch; padding: 4px; }
+  .comando .linha { padding: 12px 12px 4px; }
+  .copiar { width: 100%; min-height: 48px; }
+  .linhas > div { grid-template-columns: 1fr; }
+  .linhas dd, .linhas .valor { text-align: left; }
 }
