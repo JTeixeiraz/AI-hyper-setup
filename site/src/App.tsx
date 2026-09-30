@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import manifesto from "../../manifesto.json";
+import upstreams from "../../fontes/upstreams.json";
 import { useLingua } from "./i18n";
 import { Comando } from "./componentes/Comando";
 import { Lingua } from "./componentes/Lingua";
@@ -7,14 +8,21 @@ import { Terminal } from "./componentes/Terminal";
 import { Skills } from "./componentes/Skills";
 import { Escudo, Certo, Marca } from "./componentes/Icones";
 
-const UPSTREAMS = [
-  ["AgriciDaniel/claude-seo", 33, "MIT"],
-  ["sumeet0701/ResumeSkills", 22, "MIT"],
-  ["charlie947/social-media-skills", 17, "MIT"],
-  ["nextlevelbuilder/ui-ux-pro-max-skill", 7, "MIT"],
-  ["pbakaus/impeccable", 2, "Apache-2.0"],
-  ["OSideMedia/higgsfield-ai-prompt-skill", 1, "MIT"],
-] as const;
+// Repositorio, contagem e licenca saem das fontes, nunca digitados. Uma
+// licenca cravada aqui continuaria publicando "MIT" depois de um upstream
+// trocar de licenca — o job semanal abriria a issue e o site seguiria mentindo.
+type Upstream = { repo: string; licenca: string };
+const UPSTREAMS = Object.entries(upstreams as Record<string, Upstream>)
+  .map(([chave, u]) => ({
+    repo: u.repo.replace("https://github.com/", ""),
+    licenca: u.licenca,
+    quantas: manifesto.skills.filter(
+      (s) => "repo" in s && (s as { repo?: string }).repo === u.repo,
+    ).length,
+    chave,
+  }))
+  .filter((u) => u.quantas > 0)
+  .sort((a, b) => b.quantas - a.quantas);
 
 const COM_FONTE = manifesto.skills.filter((s) => s.origem !== "agente").length;
 const SEM_FONTE = manifesto.skills.filter((s) => s.origem === "agente").length;
@@ -148,13 +156,13 @@ export function App() {
           <h2>{t.licencasTitulo}</h2>
           <p className="legenda">{t.licencasTexto}</p>
           <div className="linhas">
-            {UPSTREAMS.map(([repo, n, lic]) => (
-              <div key={repo}>
+            {UPSTREAMS.map((u) => (
+              <div key={u.chave}>
                 <span className="rotulo">
-                  <a href={`https://github.com/${repo}`}>{repo}</a>
+                  <a href={`https://github.com/${u.repo}`}>{u.repo}</a>
                 </span>
                 <span className="valor">
-                  {n} · {lic}
+                  {u.quantas} · {u.licenca}
                 </span>
               </div>
             ))}

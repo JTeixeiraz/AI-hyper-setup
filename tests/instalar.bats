@@ -334,3 +334,42 @@ setup() {
   run dir_config codex;  [ "$output" = "$HOME/.codex" ]
   run dir_config agy;    [ "$output" = "$HOME/.gemini/config" ]
 }
+
+# Important #8 — um typo em HYPER_AGENTE abortava o script sem mensagem.
+@test "escolher_agente recusa um agente desconhecido com mensagem" {
+  run bash -c "source '${BATS_TEST_DIRNAME}/../instalar.sh'
+               AGENTES=(claude)
+               HYPER_AGENTE=cloud
+               escolher_agente < /dev/null"
+  [ "$status" -ne 0 ]
+  [[ "$output" == *"cloud"* ]]
+  [[ "$output" == *"claude"* ]]
+}
+
+@test "escolher_agente aceita um agente valido via HYPER_AGENTE" {
+  run bash -c "source '${BATS_TEST_DIRNAME}/../instalar.sh'
+               AGENTES=(claude)
+               HYPER_AGENTE=agy
+               escolher_agente < /dev/null
+               echo \$AGENTE_ESCOLHIDO"
+  [ "$status" -eq 0 ]
+  [ "${lines[-1]}" = "agy" ]
+}
+
+# Important #9 — o find cravava o nome do repo enquanto HYPER_REPO e configuravel.
+@test "baixar_repo acha o conteudo de um fork com outro nome" {
+  local tmp; tmp="$(mktemp -d)"
+  PASSOS=()
+  BASE="$tmp/base"
+  # Um tarball de fork extrai para <nome-do-fork>-main/, nao para
+  # AI-hyper-setup-main/. Este teste passa pelo caminho do tarball de
+  # proposito: o HYPER_LOCAL copia direto e nao exercita a extracao.
+  mkdir -p "$tmp/fonte/meu-fork-main/skills"
+  echo "{}" > "$tmp/fonte/meu-fork-main/manifesto.json"
+  ( cd "$tmp/fonte" && tar -czf "$tmp/fork.tar.gz" meu-fork-main )
+  curl() { cp "$tmp/fork.tar.gz" "${!#}"; }
+  run baixar_repo
+  [ "$status" -eq 0 ]
+  [ -f "$BASE/repo/manifesto.json" ]
+  rm -rf "$tmp"
+}

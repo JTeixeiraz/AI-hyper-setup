@@ -74,6 +74,14 @@ detectar_agentes() {
 # travar esperando uma tecla que nunca vem.
 escolher_agente() {
   if [ -n "${HYPER_AGENTE:-}" ]; then
+    # Sem esta validacao um typo (cloud por claude) passava adiante e so
+    # estourava em dir_skills, onde o `set -e` encerrava o script em branco —
+    # sem mensagem e sem estado.json, depois de RTK e Obsidian ja instalados.
+    if ! dir_skills "$HYPER_AGENTE" >/dev/null 2>&1; then
+      erro "HYPER_AGENTE=\"$HYPER_AGENTE\" nao e um agente conhecido."
+      erro "Use um destes: claude, codex, agy."
+      return 1
+    fi
     AGENTE_ESCOLHIDO="$HYPER_AGENTE"
     return 0
   fi
@@ -239,6 +247,23 @@ obsidian_presente() {
   return 1
 }
 
+# Ultimo recurso no Linux: o AppImage oficial, que nao precisa de root nem de
+# gerenciador de pacotes. Num Debian ou Ubuntu sem nenhum dos gerenciadores
+# acima era a diferenca entre instalar e nao instalar.
+obsidian_appimage() {
+  local api destino url
+  api="https://api.github.com/repos/obsidianmd/obsidian-releases/releases/latest"
+  url="$(curl -fsSL "$api" 2>/dev/null \
+    | grep -o '"browser_download_url": *"[^"]*\.AppImage"' \
+    | sed 's/.*"\(.*\)"/\1/' | head -1)"
+  [ -z "$url" ] && return 1
+  destino="$HOME/.local/bin/obsidian"
+  mkdir -p "$(dirname "$destino")"
+  curl -fsSL "$url" -o "$destino" 2>/dev/null || return 1
+  chmod +x "$destino"
+  return 0
+}
+
 # Falha aqui nao interrompe a instalacao: o Obsidian e importante para o
 # cerebro, mas o resto da suite funciona sem ele, e o relatorio final avisa.
 instalar_obsidian() {
@@ -251,15 +276,25 @@ instalar_obsidian() {
   local ok=1
   case "$SO" in
     linux)
-      # sudo -n, sempre: sem o -n o sudo escreve o prompt de senha direto em
+      # Tenta ate um FUNCIONAR, nao para no primeiro que EXISTE: um Arch com
+      # flatpak instalado mas sem o remote flathub falhava sem nunca tentar o
+      # pacman, que resolveria.
+      #
+      # sudo -n em todos: sem o -n o sudo escreve o prompt de senha em
       # /dev/tty (o 2>/dev/null nao o esconde) e trava a instalacao esperando
-      # uma senha que o usuario nao sabe que foi pedida. Num `curl | bash` isso
-      # e um travamento indefinido, nao uma falha.
-      if   tem flatpak; then flatpak install -y flathub md.obsidian.Obsidian >/dev/null 2>&1 && ok=0
-      elif tem pacman;  then sudo -n pacman -S --noconfirm obsidian >/dev/null 2>&1 && ok=0
-      elif tem dnf;     then sudo -n dnf install -y obsidian >/dev/null 2>&1 && ok=0
-      elif tem snap;    then sudo -n snap install obsidian --classic >/dev/null 2>&1 && ok=0
-      fi ;;
+      # uma senha que o usuario nao sabe que foi pedida.
+      tem flatpak && [ "$ok" -ne 0 ] &&
+        { flatpak install -y flathub md.obsidian.Obsidian >/dev/null 2>&1 && ok=0; }
+      tem pacman && [ "$ok" -ne 0 ] &&
+        { sudo -n pacman -S --noconfirm obsidian >/dev/null 2>&1 && ok=0; }
+      tem dnf && [ "$ok" -ne 0 ] &&
+        { sudo -n dnf install -y obsidian >/dev/null 2>&1 && ok=0; }
+      tem apt-get && [ "$ok" -ne 0 ] &&
+        { sudo -n apt-get install -y obsidian >/dev/null 2>&1 && ok=0; }
+      tem snap && [ "$ok" -ne 0 ] &&
+        { sudo -n snap install obsidian --classic >/dev/null 2>&1 && ok=0; }
+      [ "$ok" -ne 0 ] && obsidian_appimage && ok=0
+      ;;
     macos)
       tem brew && brew install --cask obsidian >/dev/null 2>&1 && ok=0 ;;
     windows)
@@ -299,7 +334,10 @@ baixar_repo() {
   elif curl -fsSL "https://codeload.github.com/${REPO}/tar.gz/refs/heads/main" \
          -o "$tmp/repo.tar.gz" 2>/dev/null &&
        tar -xzf "$tmp/repo.tar.gz" -C "$tmp" 2>/dev/null; then
-    origem="$(find "$tmp" -maxdepth 1 -type d -name 'AI-hyper-setup-*' | head -1)"
+    # O nome da pasta extraida vem do repositorio, e HYPER_REPO e
+    # configuravel: cravar "AI-hyper-setup-*" fazia qualquer fork falhar com
+    # "o conteudo nao veio como esperado" tendo o download intacto no disco.
+    origem="$(find "$tmp" -mindepth 1 -maxdepth 1 -type d ! -name '.baixando.*' | head -1)"
   elif tem git && git clone --depth 1 "https://github.com/${REPO}.git" "$tmp/clone" >/dev/null 2>&1; then
     origem="$tmp/clone"
   else

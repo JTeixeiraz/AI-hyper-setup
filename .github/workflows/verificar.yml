@@ -27,6 +27,7 @@ jobs:
       - run: node --test tests/cerebro.test.mjs
       - run: npm run manifesto && git diff --exit-code manifesto.json
       - run: npm run validar
+      - run: node scripts/conferir-numeros.mjs
 
   integracao:
     runs-on: ubuntu-latest
