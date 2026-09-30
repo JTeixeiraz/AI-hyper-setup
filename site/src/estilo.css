@@ -36,6 +36,11 @@
   /* marca e acao */
   --marca: oklch(0.52 0.092 172);
   --acao: oklch(0.47 0.165 30);
+  /* Sobre o painel escuro o ferrugem profundo nao se le. Esta e a versao
+     clara do mesmo matiz, para o passo do agente se distinguir do passo do
+     terminal sem virar destaque. */
+  --acao-claro: oklch(0.80 0.125 42);
+  --acao-linha: oklch(0.42 0.085 35);
   --acao-ink: oklch(1 0 0);
 
   --sans: Archivo, ui-sans-serif, system-ui, sans-serif;
@@ -202,7 +207,7 @@ h2 {
 
 .heroi__grade {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
   gap: clamp(1.75rem, 4vw, 3.5rem);
   align-items: center;
 }
@@ -224,7 +229,79 @@ h2 {
 }
 
 .heroi .selo { color: var(--pnl-ink-2); }
-.heroi .comando { background: var(--sunken, oklch(0.165 0.030 188)); margin-top: var(--e-3); }
+.heroi .comando { background: oklch(0.155 0.030 188); }
+
+/* ── a receita: dois comandos, dois lugares ───────────────────────────────
+   O curl vai no terminal do sistema; o /hyper-setup-initialize vai dentro do
+   agente. Sao lugares diferentes, entao parecem diferentes: prompt, icone e
+   cor do rotulo mudam. Deixar o segundo como texto solto era o maior atrito
+   do fluxo — e justamente a string que a pessoa precisa colar.
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* minmax(0, 1fr) e min-width: 0: sem os dois, o filho de grid assume o
+   tamanho do conteudo (o comando longo, que nao quebra) e estoura a pagina
+   em vez de deixar o bloco interno rolar sozinho. */
+.receita {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  margin-top: var(--e-3);
+}
+.passo-cmd { min-width: 0; }
+
+
+.passo-cmd__rotulo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 10px;
+  font-size: var(--t-corpo);
+  font-weight: 540;
+  color: var(--pnl-ink);
+}
+.passo-cmd__rotulo svg { flex-shrink: 0; }
+
+.passo-cmd__n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  font: 600 13px / 1 var(--mono);
+  background: var(--pnl-2);
+  color: var(--pnl-ink);
+  flex-shrink: 0;
+}
+
+.passo-cmd[data-onde="agente"] .passo-cmd__rotulo { color: var(--acao-claro); }
+.passo-cmd[data-onde="agente"] .passo-cmd__n { background: var(--acao); color: #fff; }
+.passo-cmd[data-onde="agente"] .comando { border: 1px solid var(--acao-linha); }
+.passo-cmd[data-onde="agente"] .cifrao { color: var(--acao-claro); }
+.passo-cmd[data-onde="agente"] code { color: var(--acao-claro); }
+
+/* O elo explica por que ha um segundo comando. Alinhado sob o circulo do
+   passo 1, ele le como continuacao, nao como nota solta. */
+.receita__elo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0 12px 8px;
+  font-size: var(--t-pequeno);
+  color: var(--pnl-ink-2);
+}
+.receita__elo svg { color: var(--acao-claro); flex-shrink: 0; }
+
+.passo-cmd + .receita__elo { margin: 0; }
+
+/* Na chamada final a receita vive sobre papel, nao sobre o heroi escuro. */
+.chamada .receita { max-width: 640px; margin-inline: auto; text-align: left; }
+.chamada .passo-cmd__rotulo { color: var(--ink-2); }
+.chamada .passo-cmd__n { background: var(--ink); color: var(--sup); }
+.chamada .receita__elo { color: var(--ink-2); }
+.chamada .receita__elo svg { color: var(--linha); }
+.chamada .passo-cmd[data-onde="agente"] .passo-cmd__rotulo { color: var(--acao); }
+.chamada .passo-cmd[data-onde="agente"] .passo-cmd__n { background: var(--acao); color: #fff; }
 
 /* ── o comando ────────────────────────────────────────────────────────── */
 
@@ -448,7 +525,7 @@ h2 {
 }
 
 .term__corpo {
-  height: clamp(280px, 38vh, 380px);
+  height: var(--alt, clamp(280px, 38vh, 380px));
   overflow-y: hidden;
   /* A linha mais longa do roteiro tem 50 caracteres. Onde nao couber, rola
      dentro do terminal — cortar a saida em silencio faria o relatorio
@@ -571,4 +648,94 @@ h2 {
 
 @media (max-width: 560px) {
   .term__corpo { font-size: 11px; padding: 14px; }
+}
+
+
+/* ── o fluxo: tres passos, cada um com o terminal daquele momento ─────────
+   Um passo descrito e uma promessa; um passo mostrado e uma demonstracao. Os
+   terminais repetem em ciclo e so animam enquanto visiveis.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.fluxo {
+  list-style: none;
+  padding: 0;
+  margin: var(--e-3) 0 0;
+  display: grid;
+  gap: var(--e-3);
+}
+
+.fluxo__passo {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  align-items: center;
+  padding-top: var(--e-3);
+  border-top: 1px solid var(--linha);
+}
+.fluxo__passo:first-child { border-top: 0; padding-top: 0; }
+
+.fluxo__texto { min-width: 0; }
+
+.fluxo__n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: 1px solid var(--linha);
+  font: 500 var(--t-pequeno) / 1 var(--mono);
+  color: var(--marca);
+  margin-bottom: 12px;
+}
+
+.fluxo__texto h3 {
+  font-size: var(--t-medio);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.fluxo__texto p {
+  color: var(--ink-2);
+  font-size: var(--t-pequeno);
+  margin-top: 6px;
+}
+
+.fluxo__onde {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: var(--sup-2);
+  border: 1px solid var(--linha);
+  font: 400 var(--t-micro) / 1.5 var(--mono);
+  color: var(--ink-2);
+}
+
+@media (max-width: 760px) {
+  .fluxo__passo { grid-template-columns: minmax(0, 1fr); gap: var(--e-2); }
+  .fluxo__n { margin-bottom: 8px; }
+}
+
+/* ── ajustes da receita ───────────────────────────────────────────────── */
+
+/* Dentro da receita o espacamento vertical vem do rotulo, nao do margin-top
+   da regra base do .comando — senao abre um vao de 40px entre o rotulo e o
+   comando a que ele se refere. */
+.passo-cmd .comando { margin-top: 0; }
+
+/* Comando curto nao estica ate a borda: sem isto o /hyper-setup-initialize
+   ficava com meia caixa vazia entre o texto e o botao. */
+.passo-cmd[data-onde="agente"] .comando {
+  width: fit-content;
+  max-width: 100%;
+}
+/* 0 0 auto, nao 0 1 auto: com o fator de encolhimento em 1 a linha cedia
+   espaco ao botao e o comando aparecia cortado no meio da palavra. */
+.passo-cmd[data-onde="agente"] .linha { flex: 0 0 auto; overflow: visible; }
+
+@media (max-width: 560px) {
+  /* Na tela estreita o botao ocupa a largura toda, entao a caixa volta a
+     esticar — fit-content ali deixaria o botao mais curto que o dedo. */
+  .passo-cmd[data-onde="agente"] .comando { width: 100%; }
+  .passo-cmd[data-onde="agente"] .linha { flex: 1 1 auto; overflow-x: auto; }
 }

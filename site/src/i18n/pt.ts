@@ -6,7 +6,11 @@ export const pt = {
   copiar: "copiar",
   copiado: "copiado",
 
+  ondeTerminal: "no seu terminal",
+  ondeAgente: "dentro do seu agente",
+  elo: "o instalador te manda rodar isto",
   passosTitulo: "Como funciona",
+  passosTexto: "Dois comandos, em dois lugares. Entre eles, o instalador te diz exatamente o que fazer.",
   passo1t: "Roda o comando",
   passo1d: "Ele detecta seu agente, instala o RTK e o Obsidian, e põe a skill no lugar certo.",
   passo2t: "Abre seu agente",

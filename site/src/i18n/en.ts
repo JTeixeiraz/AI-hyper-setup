@@ -10,7 +10,11 @@ export const en: Dicionario = {
   copiar: "copy",
   copiado: "copied",
 
+  ondeTerminal: "in your terminal",
+  ondeAgente: "inside your agent",
+  elo: "the installer tells you to run this",
   passosTitulo: "How it works",
+  passosTexto: "Two commands, in two places. In between, the installer tells you exactly what to do.",
   passo1t: "Run the command",
   passo1d: "It detects your agent, installs RTK and Obsidian, and puts the skill where it belongs.",
   passo2t: "Open your agent",

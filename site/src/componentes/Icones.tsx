@@ -37,3 +37,22 @@ export const Marca = () => (
     <path d="M12 3v18M4 7l8 4 8-4" />
   </svg>
 );
+
+export const Terminal = () => (
+  <svg {...base} width={14} height={14}>
+    <rect x="2.5" y="4" width="19" height="16" rx="2" />
+    <path d="M7 9l3 3-3 3M13 15h4" />
+  </svg>
+);
+
+export const Faisca = () => (
+  <svg {...base} width={14} height={14}>
+    <path d="M12 3l2.1 5.4L19.5 10l-5.4 2.1L12 17.5l-2.1-5.4L4.5 10l5.4-1.6L12 3z" />
+  </svg>
+);
+
+export const Seta = () => (
+  <svg {...base} width={16} height={16}>
+    <path d="M12 5v14M6 13l6 6 6-6" />
+  </svg>
+);

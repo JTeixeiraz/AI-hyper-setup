@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import manifesto from "../../manifesto.json";
 import upstreams from "../../fontes/upstreams.json";
 import { useLingua } from "./i18n";
-import { Comando } from "./componentes/Comando";
+import { Comando, CURL, SKILL } from "./componentes/Comando";
 import { Lingua } from "./componentes/Lingua";
 import { Terminal } from "./componentes/Terminal";
+import { COMPLETO, PASSO_1, PASSO_2, PASSO_3 } from "./componentes/roteiros";
 import { Skills } from "./componentes/Skills";
-import { Escudo, Certo, Marca } from "./componentes/Icones";
+import { Escudo, Certo, Marca, Seta } from "./componentes/Icones";
 
 // Repositorio, contagem e licenca saem das fontes, nunca digitados. Uma
 // licenca cravada aqui continuaria publicando "MIT" depois de um upstream
@@ -75,13 +76,39 @@ export function App() {
             <div className="heroi__texto">
               <h1>{t.titulo}</h1>
               <p className="sub">{t.subtitulo}</p>
-              <Comando />
+
+              {/* Os dois comandos ficam juntos e ambos copiaveis. O segundo e
+                  a string que a pessoa precisa colar dentro do agente, e
+                  deixa-la como texto solto era o maior atrito do fluxo. */}
+              <div className="receita">
+                <Comando
+                  comando={CURL}
+                  onde="terminal"
+                  passo={1}
+                  rotulo={t.ondeTerminal}
+                  copiar={t.copiar}
+                  copiado={t.copiado}
+                />
+                <div className="receita__elo" aria-hidden="true">
+                  <Seta />
+                  <span>{t.elo}</span>
+                </div>
+                <Comando
+                  comando={SKILL}
+                  onde="agente"
+                  passo={2}
+                  rotulo={t.ondeAgente}
+                  copiar={t.copiar}
+                  copiado={t.copiado}
+                />
+              </div>
+
               <p className="selo">
                 <Escudo size={15} />
                 {t.heroiNota}
               </p>
             </div>
-            <Terminal />
+            <Terminal roteiro={COMPLETO} />
           </div>
         </section>
 
@@ -103,38 +130,51 @@ export function App() {
         </section>
 
         <section className="larga">
-          <div className="duas">
-            <div>
-              <h2>{t.passosTitulo}</h2>
-              <ol className="passos">
-                {passos.map(([titulo, desc]) => (
-                  <li key={titulo}>
-                    <strong>{titulo}</strong>
-                    <span>{desc}</span>
-                  </li>
-                ))}
-              </ol>
-              <p className="legenda pequena">{t.instalarNota}</p>
-            </div>
+          <h2>{t.passosTitulo}</h2>
+          <p className="legenda">{t.passosTexto}</p>
 
-            <div className="painel">
-              <h2>{t.respeitaTitulo}</h2>
-              <p>{t.respeitaTexto}</p>
-              <ul className="garantias">
-                {[
-                  [t.garantia1t, t.garantia1d],
-                  [t.garantia2t, t.garantia2d],
-                  [t.garantia3t, t.garantia3d],
-                ].map(([b, d]) => (
-                  <li key={b}>
-                    <Certo />
-                    <span>
-                      <b>{b}</b> {d}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <ol className="fluxo">
+            {[
+              [t.passo1t, t.passo1d, PASSO_1, "bash", t.ondeTerminal],
+              [t.passo2t, t.passo2d, PASSO_2, "bash", t.ondeTerminal],
+              [t.passo3t, t.passo3d, PASSO_3, "claude", t.ondeAgente],
+            ].map(([titulo, desc, roteiro, nome, onde], i) => (
+              <li className="fluxo__passo" key={titulo as string}>
+                <div className="fluxo__texto">
+                  <span className="fluxo__n">{i + 1}</span>
+                  <h3>{titulo as string}</h3>
+                  <p>{desc as string}</p>
+                  <span className="fluxo__onde">{onde as string}</span>
+                </div>
+                <Terminal
+                  roteiro={roteiro as typeof PASSO_1}
+                  titulo={nome as string}
+                  altura={196}
+                />
+              </li>
+            ))}
+          </ol>
+          <p className="legenda pequena">{t.instalarNota}</p>
+        </section>
+
+        <section className="larga">
+          <div className="painel">
+            <h2>{t.respeitaTitulo}</h2>
+            <p>{t.respeitaTexto}</p>
+            <ul className="garantias">
+              {[
+                [t.garantia1t, t.garantia1d],
+                [t.garantia2t, t.garantia2d],
+                [t.garantia3t, t.garantia3d],
+              ].map(([b, d]) => (
+                <li key={b}>
+                  <Certo />
+                  <span>
+                    <b>{b}</b> {d}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
@@ -171,7 +211,28 @@ export function App() {
 
         <section className="larga chamada">
           <h2>{t.chamadaTitulo}</h2>
-          <Comando />
+          <div className="receita receita--centro">
+            <Comando
+              comando={CURL}
+              onde="terminal"
+              passo={1}
+              rotulo={t.ondeTerminal}
+              copiar={t.copiar}
+              copiado={t.copiado}
+            />
+            <div className="receita__elo" aria-hidden="true">
+              <Seta />
+              <span>{t.elo}</span>
+            </div>
+            <Comando
+              comando={SKILL}
+              onde="agente"
+              passo={2}
+              rotulo={t.ondeAgente}
+              copiar={t.copiar}
+              copiado={t.copiado}
+            />
+          </div>
           <p className="legenda pequena">
             {t.chamadaNota.replace("{n}", String(COM_FONTE))}
           </p>
