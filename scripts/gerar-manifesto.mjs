@@ -27,7 +27,11 @@ export function gerar(upstreams, classificacao) {
       skill.repo = up.repo;
       skill.licenca = up.licenca;
       if (up.ignorar) skill.ignorar = up.ignorar;
-      if (item.origem === "git") skill.subpasta = `${up.raiz}/${item.nome}`;
+      // O override vem da classificacao quando a skill nao mora em
+      // <raiz>/<nome>; a convencao cobre o resto.
+      if (item.origem === "git") {
+        skill.subpasta = item.subpasta ?? `${up.raiz}/${item.nome}`;
+      }
       if (item.origem === "plugin") skill.marketplace = up.marketplace;
     }
 

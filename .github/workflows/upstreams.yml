@@ -28,7 +28,7 @@ jobs:
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: "Um upstream do manifesto mudou",
+              title: "Um upstream do manifesto mudou ou uma subpasta sumiu",
               body: "O job semanal falhou. Veja os detalhes em "
                   + `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}`
                   + `/actions/runs/${context.runId}`,

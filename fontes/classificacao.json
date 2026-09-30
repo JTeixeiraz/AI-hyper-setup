@@ -182,7 +182,8 @@
   {
     "nome": "higgsfield",
     "origem": "git",
-    "upstream": "higgsfield"
+    "upstream": "higgsfield",
+    "subpasta": "."
   },
   {
     "nome": "higgsfield-claude-skills",
@@ -201,8 +202,8 @@
   },
   {
     "nome": "impeccable-skill",
-    "origem": "git",
-    "upstream": "impeccable"
+    "origem": "agente",
+    "dica": "upstream nao localizado em 2026-09-29"
   },
   {
     "nome": "interview-prep-generator",
@@ -477,7 +478,8 @@
   {
     "nome": "seo-ahrefs",
     "origem": "git",
-    "upstream": "claude-seo"
+    "upstream": "claude-seo",
+    "subpasta": "extensions/ahrefs"
   },
   {
     "nome": "seo-audit",
@@ -492,7 +494,8 @@
   {
     "nome": "seo-bing",
     "origem": "git",
-    "upstream": "claude-seo"
+    "upstream": "claude-seo",
+    "subpasta": "extensions/bing-webmaster"
   },
   {
     "nome": "seo-cluster",
@@ -532,7 +535,8 @@
   {
     "nome": "seo-firecrawl",
     "origem": "git",
-    "upstream": "claude-seo"
+    "upstream": "claude-seo",
+    "subpasta": "extensions/firecrawl"
   },
   {
     "nome": "seo-flow",
@@ -582,7 +586,8 @@
   {
     "nome": "seo-matomo",
     "origem": "git",
-    "upstream": "claude-seo"
+    "upstream": "claude-seo",
+    "subpasta": "extensions/matomo"
   },
   {
     "nome": "seo-max-kt",
@@ -602,7 +607,8 @@
   {
     "nome": "seo-profound",
     "origem": "git",
-    "upstream": "claude-seo"
+    "upstream": "claude-seo",
+    "subpasta": "extensions/profound"
   },
   {
     "nome": "seo-programmatic",
@@ -622,7 +628,8 @@
   {
     "nome": "seo-seranking",
     "origem": "git",
-    "upstream": "claude-seo"
+    "upstream": "claude-seo",
+    "subpasta": "extensions/seranking"
   },
   {
     "nome": "seo-sitemap",
@@ -642,7 +649,8 @@
   {
     "nome": "seo-unlighthouse",
     "origem": "git",
-    "upstream": "claude-seo"
+    "upstream": "claude-seo",
+    "subpasta": "extensions/unlighthouse"
   },
   {
     "nome": "slides",

@@ -22,7 +22,7 @@ const FAMILIAS = {
     graphic-designer hook-generator newsletter-voice niche-research pinned-comment post-formatter
     post-scorer post-writer profile-optimizer quote-post reels-scripting voice-builder
     youtube-thumbnail`,
-  "impeccable": "impeccable impeccable-skill",
+  "impeccable": "impeccable",
   "higgsfield": "higgsfield",
 };
 
@@ -37,7 +37,7 @@ const EXCLUIDAS = "xpe-db-query";
 
 // Sem upstream publico localizado, ou com upstream sem arquivo de licenca.
 // A IA procura a fonte na instalacao; nao achando, reporta como nao instalada.
-const AGENTE = `ad-spend-allocator ai-search-visibility-aeo-geo-llmo bofu-seo-aeo-strategy
+const AGENTE = `impeccable-skill ad-spend-allocator ai-search-visibility-aeo-geo-llmo bofu-seo-aeo-strategy
   campaign-analyzer caveman emil-design google-ads-account-audit google-ads-campaign-builder
   google-ads-keyword-engine google-ads-optimizer google-ads-scripts google-merchant-center
   higgsfield-claude-skills link-building-digital-pr local-seo-google-business-profile
@@ -47,11 +47,30 @@ const AGENTE = `ad-spend-allocator ai-search-visibility-aeo-geo-llmo bofu-seo-ae
   seo-keyword-research-intent-mapping seo-max-kt seo-reporting-measurement synced taste-skill
   technical-seo-ai-crawler-audit`;
 
+// Skills que nao moram em <raiz>/<nome>. Cada uma foi conferida clonando o
+// repositorio: sem isso, o manifesto aponta para um caminho que nao existe e
+// a instalacao pula a skill em silencio.
+const SUBPASTA = {
+  "seo-ahrefs": "extensions/ahrefs",
+  "seo-bing": "extensions/bing-webmaster",
+  "seo-firecrawl": "extensions/firecrawl",
+  "seo-matomo": "extensions/matomo",
+  "seo-profound": "extensions/profound",
+  "seo-seranking": "extensions/seranking",
+  "seo-unlighthouse": "extensions/unlighthouse",
+  // O SKILL.md do higgsfield esta na raiz do repositorio.
+  higgsfield: ".",
+};
+
 const lista = (s) => s.trim().split(/\s+/);
 const saida = [];
 
 for (const [upstream, nomes] of Object.entries(FAMILIAS)) {
-  for (const nome of lista(nomes)) saida.push({ nome, origem: "git", upstream });
+  for (const nome of lista(nomes)) {
+    const item = { nome, origem: "git", upstream };
+    if (SUBPASTA[nome]) item.subpasta = SUBPASTA[nome];
+    saida.push(item);
+  }
 }
 for (const nome of lista(PLUGIN_UIUX)) {
   saida.push({ nome, origem: "plugin", upstream: "ui-ux-pro-max" });

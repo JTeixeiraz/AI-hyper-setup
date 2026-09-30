@@ -24,7 +24,7 @@ Linux, macOS e Windows (Git Bash ou WSL).
 
 ## O que instala
 
-- **95 skills** com fonte conhecida, de seis repositórios públicos
+- **94 skills** com fonte conhecida, de seis repositórios públicos
 - **RTK**, o proxy que corta até 90% da saída de terminal que seu agente lê
 - **Obsidian**, com uma skill que lê e escreve o contexto entre sessões
 - **Servidores MCP** e os plugins oficiais
@@ -54,12 +54,12 @@ Skills de terceiros são baixadas da fonte original, **não redistribuídas aqui
 | [sumeet0701/ResumeSkills](https://github.com/sumeet0701/ResumeSkills) | 22 | MIT |
 | [charlie947/social-media-skills](https://github.com/charlie947/social-media-skills) | 17 | MIT |
 | [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | 7 | MIT |
-| [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | 2 | Apache-2.0 |
+| [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | 1 | Apache-2.0 |
 | [OSideMedia/higgsfield-ai-prompt-skill](https://github.com/OSideMedia/higgsfield-ai-prompt-skill) | 1 | MIT |
 
 Um job semanal confere se algum upstream saiu do ar ou trocou de licença.
 
-Outras **32 skills** não têm upstream público localizado. Para elas, a IA procura
+Outras **33 skills** não têm upstream público localizado. Para elas, a IA procura
 a fonte na hora da instalação e, não encontrando, **reporta como não instalada** —
 nunca escreve um substituto.
 

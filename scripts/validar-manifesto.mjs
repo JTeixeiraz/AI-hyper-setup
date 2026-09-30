@@ -21,26 +21,49 @@ export function validarEstrutura(m) {
   return { erros };
 }
 
-// Confere se cada repositorio ainda responde e se a licenca nao mudou.
-// Um upstream que troca de licenca deixa de poder ser instalado automaticamente,
-// e queremos saber disso por uma issue, nao por uma reclamacao.
+// Confere tres coisas contra os repositorios de verdade: que respondem, que a
+// licenca nao mudou, e que CADA SUBPASTA EXISTE.
+//
+// A ultima e a que dolia: 16 skills apontavam para caminhos inexistentes e a
+// instalacao as pulava em silencio, com a suite toda verde. Um caminho errado
+// no manifesto e invisivel ate alguem clonar e olhar.
 export async function validarRede(m) {
   const erros = [];
-  const repos = new Map();
+  const porRepo = new Map();
   for (const s of m.skills) {
-    if (s.repo) repos.set(s.repo, s.licenca);
+    if (!s.repo) continue;
+    if (!porRepo.has(s.repo)) porRepo.set(s.repo, { licenca: s.licenca, subpastas: [] });
+    if (s.subpasta) porRepo.get(s.repo).subpastas.push([s.nome, s.subpasta]);
   }
 
-  for (const [repo, licencaEsperada] of repos) {
+  for (const [repo, info] of porRepo) {
     const slug = repo.replace("https://github.com/", "");
-    const r = await fetch(`https://api.github.com/repos/${slug}`, {
-      headers: { accept: "application/vnd.github+json" },
-    });
+    const cab = { accept: "application/vnd.github+json" };
+
+    const r = await fetch(`https://api.github.com/repos/${slug}`, { headers: cab });
     if (!r.ok) { erros.push(`${slug}: respondeu ${r.status}`); continue; }
     const dados = await r.json();
     const atual = dados.license?.spdx_id ?? "<sem licenca>";
-    if (atual !== licencaEsperada) {
-      erros.push(`${slug}: licenca mudou de ${licencaEsperada} para ${atual}`);
+    if (atual !== info.licenca) {
+      erros.push(`${slug}: licenca mudou de ${info.licenca} para ${atual}`);
+    }
+
+    const t = await fetch(
+      `https://api.github.com/repos/${slug}/git/trees/${dados.default_branch}?recursive=1`,
+      { headers: cab },
+    );
+    if (!t.ok) { erros.push(`${slug}: nao consegui listar a arvore (${t.status})`); continue; }
+    const arvore = await t.json();
+    if (arvore.truncated) {
+      erros.push(`${slug}: arvore truncada pela API; nao da para conferir as subpastas`);
+      continue;
+    }
+    const dirs = new Set(arvore.tree.filter((n) => n.type === "tree").map((n) => n.path));
+
+    for (const [nome, sub] of info.subpastas) {
+      // "." e o proprio repositorio: nao aparece na arvore, e sempre existe.
+      if (sub === "." || dirs.has(sub)) continue;
+      erros.push(`${slug}: ${nome} aponta para "${sub}", que nao existe no repositorio`);
     }
   }
   return { erros };

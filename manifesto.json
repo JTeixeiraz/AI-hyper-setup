@@ -269,7 +269,7 @@
       "ignorar": [
         "node_modules"
       ],
-      "subpasta": "./higgsfield"
+      "subpasta": "."
     },
     {
       "nome": "higgsfield-claude-skills",
@@ -300,15 +300,8 @@
     },
     {
       "nome": "impeccable-skill",
-      "origem": "git",
-      "repo": "https://github.com/pbakaus/impeccable",
-      "licenca": "Apache-2.0",
-      "ignorar": [
-        "site",
-        "tests",
-        "node_modules"
-      ],
-      "subpasta": ".agents/skills/impeccable-skill"
+      "origem": "agente",
+      "dica": "upstream nao localizado em 2026-09-29"
     },
     {
       "nome": "interview-prep-generator",
@@ -656,7 +649,7 @@
         "ms-playwright",
         "node_modules"
       ],
-      "subpasta": "skills/seo-ahrefs"
+      "subpasta": "extensions/ahrefs"
     },
     {
       "nome": "seo-audit",
@@ -689,7 +682,7 @@
         "ms-playwright",
         "node_modules"
       ],
-      "subpasta": "skills/seo-bing"
+      "subpasta": "extensions/bing-webmaster"
     },
     {
       "nome": "seo-cluster",
@@ -777,7 +770,7 @@
         "ms-playwright",
         "node_modules"
       ],
-      "subpasta": "skills/seo-firecrawl"
+      "subpasta": "extensions/firecrawl"
     },
     {
       "nome": "seo-flow",
@@ -881,7 +874,7 @@
         "ms-playwright",
         "node_modules"
       ],
-      "subpasta": "skills/seo-matomo"
+      "subpasta": "extensions/matomo"
     },
     {
       "nome": "seo-max-kt",
@@ -919,7 +912,7 @@
         "ms-playwright",
         "node_modules"
       ],
-      "subpasta": "skills/seo-profound"
+      "subpasta": "extensions/profound"
     },
     {
       "nome": "seo-programmatic",
@@ -957,7 +950,7 @@
         "ms-playwright",
         "node_modules"
       ],
-      "subpasta": "skills/seo-seranking"
+      "subpasta": "extensions/seranking"
     },
     {
       "nome": "seo-sitemap",
@@ -1001,7 +994,7 @@
         "ms-playwright",
         "node_modules"
       ],
-      "subpasta": "skills/seo-unlighthouse"
+      "subpasta": "extensions/unlighthouse"
     },
     {
       "nome": "slides",
