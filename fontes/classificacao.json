@@ -479,7 +479,7 @@
     "nome": "seo-ahrefs",
     "origem": "git",
     "upstream": "claude-seo",
-    "subpasta": "extensions/ahrefs"
+    "subpasta": "extensions/ahrefs/skills/seo-ahrefs"
   },
   {
     "nome": "seo-audit",
@@ -495,7 +495,7 @@
     "nome": "seo-bing",
     "origem": "git",
     "upstream": "claude-seo",
-    "subpasta": "extensions/bing-webmaster"
+    "subpasta": "extensions/bing-webmaster/skills/seo-bing"
   },
   {
     "nome": "seo-cluster",
@@ -536,7 +536,7 @@
     "nome": "seo-firecrawl",
     "origem": "git",
     "upstream": "claude-seo",
-    "subpasta": "extensions/firecrawl"
+    "subpasta": "extensions/firecrawl/skills/seo-firecrawl"
   },
   {
     "nome": "seo-flow",
@@ -587,7 +587,7 @@
     "nome": "seo-matomo",
     "origem": "git",
     "upstream": "claude-seo",
-    "subpasta": "extensions/matomo"
+    "subpasta": "extensions/matomo/skills/seo-matomo"
   },
   {
     "nome": "seo-max-kt",
@@ -608,7 +608,7 @@
     "nome": "seo-profound",
     "origem": "git",
     "upstream": "claude-seo",
-    "subpasta": "extensions/profound"
+    "subpasta": "extensions/profound/skills/seo-profound"
   },
   {
     "nome": "seo-programmatic",
@@ -629,7 +629,7 @@
     "nome": "seo-seranking",
     "origem": "git",
     "upstream": "claude-seo",
-    "subpasta": "extensions/seranking"
+    "subpasta": "extensions/seranking/skills/seo-seranking"
   },
   {
     "nome": "seo-sitemap",
@@ -650,7 +650,7 @@
     "nome": "seo-unlighthouse",
     "origem": "git",
     "upstream": "claude-seo",
-    "subpasta": "extensions/unlighthouse"
+    "subpasta": "extensions/unlighthouse/skills/seo-unlighthouse"
   },
   {
     "nome": "slides",

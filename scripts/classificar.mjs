@@ -51,13 +51,13 @@ const AGENTE = `impeccable-skill ad-spend-allocator ai-search-visibility-aeo-geo
 // repositorio: sem isso, o manifesto aponta para um caminho que nao existe e
 // a instalacao pula a skill em silencio.
 const SUBPASTA = {
-  "seo-ahrefs": "extensions/ahrefs",
-  "seo-bing": "extensions/bing-webmaster",
-  "seo-firecrawl": "extensions/firecrawl",
-  "seo-matomo": "extensions/matomo",
-  "seo-profound": "extensions/profound",
-  "seo-seranking": "extensions/seranking",
-  "seo-unlighthouse": "extensions/unlighthouse",
+  "seo-ahrefs": "extensions/ahrefs/skills/seo-ahrefs",
+  "seo-bing": "extensions/bing-webmaster/skills/seo-bing",
+  "seo-firecrawl": "extensions/firecrawl/skills/seo-firecrawl",
+  "seo-matomo": "extensions/matomo/skills/seo-matomo",
+  "seo-profound": "extensions/profound/skills/seo-profound",
+  "seo-seranking": "extensions/seranking/skills/seo-seranking",
+  "seo-unlighthouse": "extensions/unlighthouse/skills/seo-unlighthouse",
   // O SKILL.md do higgsfield esta na raiz do repositorio.
   higgsfield: ".",
 };

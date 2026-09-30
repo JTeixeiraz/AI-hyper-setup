@@ -649,7 +649,7 @@
         "ms-playwright",
         "node_modules"
       ],
-      "subpasta": "extensions/ahrefs"
+      "subpasta": "extensions/ahrefs/skills/seo-ahrefs"
     },
     {
       "nome": "seo-audit",
@@ -682,7 +682,7 @@
         "ms-playwright",
         "node_modules"
       ],
-      "subpasta": "extensions/bing-webmaster"
+      "subpasta": "extensions/bing-webmaster/skills/seo-bing"
     },
     {
       "nome": "seo-cluster",
@@ -770,7 +770,7 @@
         "ms-playwright",
         "node_modules"
       ],
-      "subpasta": "extensions/firecrawl"
+      "subpasta": "extensions/firecrawl/skills/seo-firecrawl"
     },
     {
       "nome": "seo-flow",
@@ -874,7 +874,7 @@
         "ms-playwright",
         "node_modules"
       ],
-      "subpasta": "extensions/matomo"
+      "subpasta": "extensions/matomo/skills/seo-matomo"
     },
     {
       "nome": "seo-max-kt",
@@ -912,7 +912,7 @@
         "ms-playwright",
         "node_modules"
       ],
-      "subpasta": "extensions/profound"
+      "subpasta": "extensions/profound/skills/seo-profound"
     },
     {
       "nome": "seo-programmatic",
@@ -950,7 +950,7 @@
         "ms-playwright",
         "node_modules"
       ],
-      "subpasta": "extensions/seranking"
+      "subpasta": "extensions/seranking/skills/seo-seranking"
     },
     {
       "nome": "seo-sitemap",
@@ -994,7 +994,7 @@
         "ms-playwright",
         "node_modules"
       ],
-      "subpasta": "extensions/unlighthouse"
+      "subpasta": "extensions/unlighthouse/skills/seo-unlighthouse"
     },
     {
       "nome": "slides",
