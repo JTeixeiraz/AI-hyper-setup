@@ -49,13 +49,36 @@ checar "pula o rtk"       '"item": "rtk", "estado": "ja-existia"'      "$saida"
 checar "pula o obsidian"  '"item": "obsidian", "estado": "ja-existia"' "$saida"
 
 # A segunda execucao e o teste que prova a idempotencia que o produto promete.
+#
+# Afirma sobre TODOS os passos, nao sobre os que se sabe que passam: a versao
+# anterior checava so `rtk` e `skill-hyper-setup` e deixava de fora justamente
+# `repositorio` e `rtk-hook`, que eram os dois que reportavam `instalado`. Um
+# teste que escolhe o que olhar nao pode falhar no defeito que existe.
 printf 'segunda execucao\n'
 saida="$(docker run --rm hyper-limpo bash -c '
   HYPER_LOCAL=/repo bash instalar.sh >/dev/null 2>&1
   HYPER_LOCAL=/repo bash instalar.sh >/dev/null 2>&1
   cat ~/.ai-hyper-setup/estado.json')"
-checar "rtk ja existia"   '"item": "rtk", "estado": "ja-existia"'               "$saida"
-checar "skill ja existia" '"item": "skill-hyper-setup", "estado": "ja-existia"' "$saida"
+
+novos="$(printf '%s' "$saida" | grep -c '"estado": "instalado"' || true)"
+if [ "$novos" -eq 0 ]; then
+  printf '  ok    nada reinstalado na segunda passada\n'
+else
+  printf '  FALHA %s passo(s) ainda reportam instalado:\n' "$novos"
+  printf '%s' "$saida" | grep '"estado": "instalado"' | sed 's/^/          /'
+  falhas=$((falhas + 1))
+fi
+
+for item in rtk rtk-hook obsidian repositorio skill-hyper-setup; do
+  linha="$(printf '%s' "$saida" | grep "\"item\": \"${item}\"" || true)"
+  if [ -z "$linha" ]; then
+    printf '  FALHA %s ausente do estado.json\n' "$item"; falhas=$((falhas + 1))
+  elif printf '%s' "$linha" | grep -q '"estado": "instalado"'; then
+    printf '  FALHA %s reinstalado\n' "$item"; falhas=$((falhas + 1))
+  else
+    printf '  ok    %s preservado\n' "$item"
+  fi
+done
 
 printf '\n'
 if [ "$falhas" -gt 0 ]; then

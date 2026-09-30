@@ -165,6 +165,15 @@ flag_rtk() {
 
 # O `rtk init` reescreve a configuracao do agente. Rodar a cada execucao mexia
 # no settings.json de quem so queria conferir se estava tudo instalado.
+dir_config() {
+  case "$1" in
+    claude) echo "$HOME/.claude" ;;
+    codex)  echo "$HOME/.codex" ;;
+    agy)    echo "$HOME/.gemini/config" ;;
+    *)      return 1 ;;
+  esac
+}
+
 rtk_hook_registrado() {
   local arq
   case "$AGENTE_ESCOLHIDO" in
@@ -198,11 +207,23 @@ instalar_rtk() {
   # --auto-patch acrescenta o hook ao settings.json existente em vez de
   # perguntar. Sem ele, em modo nao-interativo o rtk pula o patch e o hook
   # nunca e registrado.
+  # O `rtk init` desiste em silencio quando o diretorio do agente nao existe,
+  # e numa maquina nova ele ainda nao existe neste ponto — a skill so e
+  # instalada depois. Sem este mkdir o hook nunca era registrado na primeira
+  # execucao, e so aparecia se a pessoa rodasse o instalador duas vezes.
+  mkdir -p "$(dir_config "$AGENTE_ESCOLHIDO")"
+
   # shellcheck disable=SC2046
-  if rtk init $(flag_rtk "$AGENTE_ESCOLHIDO") --auto-patch >/dev/null 2>&1; then
+  rtk init $(flag_rtk "$AGENTE_ESCOLHIDO") --auto-patch >/dev/null 2>&1 || true
+
+  # O codigo de saida do `rtk init` nao prova que o hook ficou registrado: ele
+  # pode sair 0 e nao escrever nada quando o diretorio do agente nao existe.
+  # Confira o resultado; reportar "instalado" sem ter instalado e pior que
+  # reportar a falha.
+  if rtk_hook_registrado; then
     registrar rtk-hook instalado "$AGENTE_ESCOLHIDO"
   else
-    registrar rtk-hook falhou "rtk init nao completou"
+    registrar rtk-hook falhou "rtk init nao registrou o hook em $AGENTE_ESCOLHIDO"
   fi
   return 0
 }
@@ -230,10 +251,14 @@ instalar_obsidian() {
   local ok=1
   case "$SO" in
     linux)
+      # sudo -n, sempre: sem o -n o sudo escreve o prompt de senha direto em
+      # /dev/tty (o 2>/dev/null nao o esconde) e trava a instalacao esperando
+      # uma senha que o usuario nao sabe que foi pedida. Num `curl | bash` isso
+      # e um travamento indefinido, nao uma falha.
       if   tem flatpak; then flatpak install -y flathub md.obsidian.Obsidian >/dev/null 2>&1 && ok=0
-      elif tem pacman;  then sudo pacman -S --noconfirm obsidian >/dev/null 2>&1 && ok=0
-      elif tem dnf;     then sudo dnf install -y obsidian >/dev/null 2>&1 && ok=0
-      elif tem snap;    then sudo snap install obsidian --classic >/dev/null 2>&1 && ok=0
+      elif tem pacman;  then sudo -n pacman -S --noconfirm obsidian >/dev/null 2>&1 && ok=0
+      elif tem dnf;     then sudo -n dnf install -y obsidian >/dev/null 2>&1 && ok=0
+      elif tem snap;    then sudo -n snap install obsidian --classic >/dev/null 2>&1 && ok=0
       fi ;;
     macos)
       tem brew && brew install --cask obsidian >/dev/null 2>&1 && ok=0 ;;
@@ -262,7 +287,11 @@ instalar_obsidian() {
 baixar_repo() {
   local tmp origem destino
   destino="$BASE/repo"
-  tmp="$(mktemp -d)"
+  # O temporario nasce ao lado do destino, nao em /tmp: entre filesystems
+  # diferentes (tmpfs x btrfs, por exemplo) o `mv` vira copy+unlink e deixa de
+  # ser atomico — uma interrupcao no meio deixaria repo/ pela metade.
+  mkdir -p "$BASE"
+  tmp="$(mktemp -d "$BASE/.baixando.XXXXXX")"
 
   if [ -n "${HYPER_LOCAL:-}" ] && [ -d "$HYPER_LOCAL" ]; then
     origem="$tmp/local"
@@ -275,12 +304,14 @@ baixar_repo() {
     origem="$tmp/clone"
   else
     rm -rf "$tmp"
+    rmdir "$BASE" 2>/dev/null || true
     erro "Nao consegui baixar o repositorio. Verifique a conexao e tente de novo."
     return 2
   fi
 
   if [ -z "$origem" ] || [ ! -d "$origem" ]; then
     rm -rf "$tmp"
+    rmdir "$BASE" 2>/dev/null || true
     erro "O download completou mas o conteudo nao veio como esperado."
     return 2
   fi

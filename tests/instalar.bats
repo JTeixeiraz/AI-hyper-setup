@@ -328,3 +328,9 @@ setup() {
   [ "$viu_init" -eq 1 ]
   rm -rf "$tmp"
 }
+
+@test "dir_config devolve o diretorio de cada agente" {
+  run dir_config claude; [ "$output" = "$HOME/.claude" ]
+  run dir_config codex;  [ "$output" = "$HOME/.codex" ]
+  run dir_config agy;    [ "$output" = "$HOME/.gemini/config" ]
+}

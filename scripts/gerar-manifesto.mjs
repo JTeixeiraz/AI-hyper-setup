@@ -38,9 +38,11 @@ export function gerar(upstreams, classificacao) {
     skills.push(skill);
   }
 
+  // Sem data de geracao: o CI confere `npm run manifesto && git diff
+  // --exit-code`, e um campo que muda a cada dia faria todo push falhar a
+  // partir do dia seguinte ao commit. O artefato precisa ser reproduzivel.
   return {
     versao: 1,
-    gerado: new Date().toISOString().slice(0, 10),
     skills,
     mcps: [
       { nome: "ruflo", comando: "npx",
