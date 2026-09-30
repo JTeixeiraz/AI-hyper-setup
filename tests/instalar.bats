@@ -140,6 +140,32 @@ setup() {
   rm -rf "$tmp"
 }
 
+# O Review Focus #2 fala de $HOME com espaco, nao de um destino com espaco.
+# O teste seguinte punha o espaco so no destino e nao exercitava o caso.
+@test "o fluxo completo funciona com espaco e acento no HOME" {
+  local raiz; raiz="$(mktemp -d)"
+  local lar="$raiz/João da Silva"
+  mkdir -p "$lar"
+  run bash -c "
+    export HOME='$lar'
+    export HYPER_BASE='$lar/.ai-hyper-setup'
+    source '${BATS_TEST_DIRNAME}/../instalar.sh'
+    PASSOS=(); SO=linux; ARQ=x64; AGENTE_ESCOLHIDO=claude
+    mkdir -p '$raiz/origem/skills/hyper-setup-initialize'
+    echo skill > '$raiz/origem/skills/hyper-setup-initialize/SKILL.md'
+    echo '{}'  > '$raiz/origem/manifesto.json'
+    HYPER_LOCAL='$raiz/origem' baixar_repo
+    instalar_skill
+    gravar_estado \"\$BASE/estado.json\"
+    node -e \"JSON.parse(require('fs').readFileSync(process.argv[1],'utf8'))\" \"\$BASE/estado.json\"
+    test -f '$lar/.claude/skills/hyper-setup-initialize/SKILL.md'
+    echo TUDO_CERTO
+  "
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"TUDO_CERTO"* ]]
+  rm -rf "$raiz"
+}
+
 @test "gravar_estado funciona em caminho com espaco" {
   local tmp; tmp="$(mktemp -d)/com espaco no nome"
   mkdir -p "$tmp"
@@ -215,6 +241,24 @@ setup() {
   run baixar_repo
   [ "$status" -eq 2 ]
   [ ! -d "$BASE" ]
+  rm -rf "$tmp"
+}
+
+# A propriedade que importa no Review Focus #4 nao e "nao criou nada" — e que
+# uma instalacao JA EXISTENTE sobrevive a um download que falhou. O teste
+# acima so afirma sobre um BASE que nunca existiu.
+@test "baixar_repo preserva a instalacao anterior quando a rede falha" {
+  local tmp; tmp="$(mktemp -d)"
+  BASE="$tmp/base"
+  mkdir -p "$BASE/repo/skills" "$BASE/cerebro"
+  echo "manifesto anterior" > "$BASE/repo/manifesto.json"
+  echo 'const VAULT = "/home/u/Meu Vault";' > "$BASE/cerebro/abrir.mjs"
+  curl() { return 7; }
+  git()  { return 1; }
+  run baixar_repo
+  [ "$status" -eq 2 ]
+  [ "$(cat "$BASE/repo/manifesto.json")" = "manifesto anterior" ]
+  grep -q "Meu Vault" "$BASE/cerebro/abrir.mjs"
   rm -rf "$tmp"
 }
 

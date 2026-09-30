@@ -27,39 +27,37 @@ Listar 33 nomes de skills de SEO enche a tela e nao informa mais que "seo (33)".
 O cerebro precisa de **dois** mecanismos. A skill diz *como* escrever; os hooks
 dizem *quando*. Skills nao disparam na abertura nem no fechamento da sessao.
 
-### Claude Code — `~/.claude/settings.json`
+**Nao faca isso a mao.** Rode:
 
-Leia o arquivo, ache `hooks.SessionStart` e `hooks.SessionEnd`, e **acrescente**
-ao array. Nunca substitua o arquivo nem o array: ali costumam viver hooks do
-claude-flow e do RTK, e apaga-los quebra o ambiente do usuario.
-
-```json
-{
-  "hooks": {
-    "SessionStart": [
-      { "hooks": [{ "type": "command",
-        "command": "node ~/.ai-hyper-setup/cerebro/abrir.mjs", "timeout": 8000 }] }
-    ],
-    "SessionEnd": [
-      { "hooks": [{ "type": "command",
-        "command": "node ~/.ai-hyper-setup/cerebro/fechar.mjs", "timeout": 10000 }] }
-    ]
-  }
-}
+```bash
+node ~/.ai-hyper-setup/cerebro/instalar-hooks.mjs <claude|codex|agy>
 ```
 
-Os caminhos apontam para `~/.ai-hyper-setup/cerebro/`, a **copia** — nunca para
+Ele imprime uma linha pronta para o relatorio:
+
+```
+hooks-cerebro | instalado
+hooks-cerebro | ja-existia
+hooks-cerebro | falhou | ~/.claude/settings.json: JSON invalido: ...
+hooks-cerebro | nao-aplicavel | agy nao expoe hooks de sessao
+```
+
+O que ele garante, e por que nao e prosa:
+
+- **Recusa gravar num settings.json invalido** e deixa o arquivo exatamente
+  como estava. Um settings quebrado costuma ser uma edicao a mao pela metade;
+  sobrescrever apagaria o trabalho da pessoa junto com o erro de sintaxe.
+- **Preserva os hooks de terceiros** — claude-flow, RTK — acrescentando aos
+  arrays em vez de substituir.
+- **Faz backup** em `settings.json.bak-pre-hyper` antes de gravar.
+- **Nao duplica** quando ja registrado.
+
+Isto e o unico caminho desta suite cujo erro nao tem volta para o usuario.
+Esta coberto por teste em `tests/settings.test.mjs`; reimplementar por conta
+propria joga essa cobertura fora.
+
+Os comandos apontam para `~/.ai-hyper-setup/cerebro/`, a **copia** — nunca para
 `repo/cerebro/`, que e substituido a cada reexecucao do instalador.
-
-A logica de mesclagem esta implementada em `~/.ai-hyper-setup/cerebro/hooks.mjs`,
-na funcao `mesclarHook(settings, evento, comando)`. Use-a em vez de reescrever:
-ela ja preserva os hooks existentes e nao duplica um comando ja registrado.
-
-**Se `settings.json` nao for JSON valido, nao grave.** Registre
-`hooks-cerebro | falhou | settings.json invalido` e siga. Corromper a
-configuracao de alguem e o pior resultado possivel desta skill.
-
-Faca um backup em `settings.json.bak-pre-hyper` antes de gravar.
 
 ## Plugins (so Claude Code)
 

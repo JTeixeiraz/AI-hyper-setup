@@ -106,7 +106,11 @@ Se existir mas nao for JSON valido, **nao grave**: registre a falha e siga.
    pararia de ler o vault **sem erro nenhum** — `existsSync("{{VAULT}}")` e
    falso e o script sai com codigo 0. O usuario perderia a memoria entre
    sessoes sem uma linha avisando.
-5. Registre os hooks de sessao conforme `referencias/relatorio.md`.
+5. Registre os hooks rodando
+   `node ~/.ai-hyper-setup/cerebro/instalar-hooks.mjs <agente>`. **Nao mexa no
+   `settings.json` a mao**: o script recusa gravar num arquivo invalido,
+   preserva os hooks de terceiros e faz backup, e e a unica parte desta
+   instalacao cujo erro nao tem volta. Veja `referencias/relatorio.md`.
 
 ## Fase 5 — O relatorio
 
