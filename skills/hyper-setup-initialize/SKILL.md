@@ -99,6 +99,16 @@ Se existir mas nao for JSON valido, **nao grave**: registre a falha e siga.
    o sistema estiver em ingles) com um `.obsidian/` vazio dentro.
 3. Copie `~/.ai-hyper-setup/repo/skills/cerebro-obsidian` para o diretorio de
    skills e **substitua `{{VAULT}}`** pelo caminho encontrado.
+
+   > A **Regra que nao se dobra** da Fase 2 vale aqui tambem, e aqui ela pesa
+   > mais: se `cerebro-obsidian` ou `~/.ai-hyper-setup/cerebro/` ja existem,
+   > **pule e registre**. Depois da primeira instalacao esses arquivos carregam
+   > o vault do usuario ja configurado — sobrescrever apaga a ligacao com o
+   > cerebro dele.
+
+   Substitua `{{VAULT}}` por um **literal JSON** do caminho, aspas incluidas
+   (`JSON.stringify(caminho)`). Num caminho do Windows a barra invertida sem
+   escape colapsa em silencio e o hook passa a apontar para lugar nenhum.
 4. Copie `~/.ai-hyper-setup/repo/cerebro/` para **`~/.ai-hyper-setup/cerebro/`**
    e substitua `{{VAULT}}` la tambem. A copia e obrigatoria: os hooks apontam
    para esses arquivos, e se apontassem para dentro de `repo/` a proxima

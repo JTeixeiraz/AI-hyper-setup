@@ -57,16 +57,28 @@ export function registrarHooks(caminho, comandos) {
 
   let saida = lido.dados;
   let mudou = false;
-  for (const [evento, comando] of Object.entries(comandos)) {
-    const antes = JSON.stringify(saida.hooks?.[evento] ?? []);
-    saida = mesclarHook(saida, evento, comando);
-    if (JSON.stringify(saida.hooks[evento]) !== antes) mudou = true;
+  try {
+    for (const [evento, comando] of Object.entries(comandos)) {
+      const antes = JSON.stringify(saida.hooks?.[evento] ?? []);
+      saida = mesclarHook(saida, evento, comando);
+      if (JSON.stringify(saida.hooks[evento]) !== antes) mudou = true;
+    }
+  } catch (e) {
+    // Estrutura interna fora do esperado (`hooks` array, evento objeto):
+    // tratar como arquivo que nao se sabe ler, nunca como convite a
+    // reescrever por cima.
+    return { estado: "falhou", motivo: `${caminho}: ${e.message}` };
   }
 
   if (!mudou) return { estado: "ja-existia" };
 
   try {
-    if (lido.estado === "ok") copyFileSync(caminho, caminho + SUFIXO_BACKUP);
+    // Nao sobrescrever um backup existente: ele guarda o arquivo ORIGINAL, e
+    // uma segunda execucao o trocaria pela versao que a primeira ja mexeu —
+    // destruindo a unica copia que serve para desfazer.
+    if (lido.estado === "ok" && !existsSync(caminho + SUFIXO_BACKUP)) {
+      copyFileSync(caminho, caminho + SUFIXO_BACKUP);
+    }
     mkdirSync(dirname(caminho), { recursive: true });
     writeFileSync(caminho, JSON.stringify(saida, null, 2) + "\n");
   } catch (e) {

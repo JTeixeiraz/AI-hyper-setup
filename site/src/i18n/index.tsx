@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { pt, type Dicionario } from "./pt";
 import { en } from "./en";
 
@@ -21,14 +21,23 @@ const Ctx = createContext<{
   trocar: (l: Lingua) => void;
 }>({ t: pt, lingua: "pt", trocar: () => {} });
 
+// O lang diz ao leitor de tela em que idioma pronunciar, e e o que um buscador
+// le ao indexar. Nao e detalhe de vitrine.
+const marcarLang = (l: Lingua) => {
+  document.documentElement.lang = l === "pt" ? "pt-BR" : "en";
+};
+
 export function ProvedorLingua({ children }: { children: ReactNode }) {
   const [lingua, setLingua] = useState<Lingua>(detectar);
 
+  // Tambem na montagem, nao so na troca: o index.html crava pt-BR, entao um
+  // visitante detectado como `en` ficava com lang="pt-BR" ate clicar no
+  // seletor — leitor de tela pronunciando ingles com fonologia portuguesa.
+  useEffect(() => { marcarLang(lingua); }, [lingua]);
+
   const trocar = (l: Lingua) => {
     setLingua(l);
-    // O lang diz ao leitor de tela em que idioma pronunciar, e e o que um
-    // buscador le ao indexar. Nao e detalhe de vitrine.
-    document.documentElement.lang = l === "pt" ? "pt-BR" : "en";
+    marcarLang(l);
   };
 
   return (

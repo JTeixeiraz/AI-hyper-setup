@@ -5,7 +5,11 @@
 import { existsSync } from "node:fs";
 import { basename } from "node:path";
 
-const VAULT = "{{VAULT}}";
+// A skill substitui {{VAULT}} por um caminho ja escapado como literal JSON,
+// aspas incluidas. Num caminho do Windows (C:\Users\...) a barra invertida
+// sem escape colapsaria — \U vira U, sem erro — e o VAULT apontaria para o
+// lugar errado, com existsSync dando falso e o hook calado.
+const VAULT = {{VAULT}};
 
 if (existsSync(VAULT)) {
   console.log(

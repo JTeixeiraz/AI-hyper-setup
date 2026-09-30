@@ -87,3 +87,53 @@ test("rodar duas vezes nao duplica nem regrava", () => {
   assert.equal(JSON.parse(readFileSync(f, "utf8")).hooks.SessionStart.length, 1);
   rmSync(d, { recursive: true });
 });
+
+// Minor #6 — o backup so importa se for o ORIGINAL. Uma segunda gravacao
+// substituindo-o pelo arquivo ja modificado destroi a unica copia util.
+test("nao sobrescreve um backup que ja existe", () => {
+  const d = novo(), f = join(d, "settings.json");
+  writeFileSync(f, '{"model":"ORIGINAL"}');
+  registrarHooks(f, COMANDOS);
+
+  // o usuario mexe, e a skill roda de novo
+  const atual = JSON.parse(readFileSync(f, "utf8"));
+  delete atual.hooks.SessionEnd;
+  writeFileSync(f, JSON.stringify(atual));
+  registrarHooks(f, COMANDOS);
+
+  const backup = JSON.parse(readFileSync(f + ".bak-pre-hyper", "utf8"));
+  assert.equal(backup.model, "ORIGINAL");
+  assert.equal(backup.hooks, undefined, "o backup virou a versao ja modificada");
+  rmSync(d, { recursive: true });
+});
+
+// Minor #2 — o ??= protege contra ausencia, nao contra tipo errado.
+test("recusa settings cujo hooks nao e objeto", () => {
+  const d = novo(), f = join(d, "settings.json");
+  const original = '{"hooks":["coisa do usuario"]}';
+  writeFileSync(f, original);
+  const r = registrarHooks(f, COMANDOS);
+  assert.equal(r.estado, "falhou");
+  assert.equal(readFileSync(f, "utf8"), original);
+  rmSync(d, { recursive: true });
+});
+
+test("recusa settings cujo evento nao e array", () => {
+  const d = novo(), f = join(d, "settings.json");
+  const original = '{"hooks":{"SessionStart":{"nao":"e array"}}}';
+  writeFileSync(f, original);
+  const r = registrarHooks(f, COMANDOS);
+  assert.equal(r.estado, "falhou");
+  assert.equal(readFileSync(f, "utf8"), original);
+  rmSync(d, { recursive: true });
+});
+
+// Minor #1 — o documento manda 8000 na abertura e 10000 no fechamento.
+test("usa o timeout declarado por evento", () => {
+  const d = novo(), f = join(d, "settings.json");
+  registrarHooks(f, { SessionStart: "abrir", SessionEnd: "fechar" });
+  const s = JSON.parse(readFileSync(f, "utf8"));
+  assert.equal(s.hooks.SessionStart[0].hooks[0].timeout, 8000);
+  assert.equal(s.hooks.SessionEnd[0].hooks[0].timeout, 10000);
+  rmSync(d, { recursive: true });
+});
